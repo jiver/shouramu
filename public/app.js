@@ -340,34 +340,32 @@ jQuery(function($){
                 $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
             },
 
-            /**
-             * Show the word for the current round on screen.
-             * @param data{{round: *, word: *, answer: *, list: Array}}
-             */
-            newWord : function(data) {
-                // Insert the new word into the DOM
-                $('#MathEqn').text(data.word);
-                App.doTextFit('#MathEqn');
-
-                // Update the data for the current round
-                App.Host.currentCorrectAnswer = data.answer;
-                App.Host.currentRound = data.round;
-            },
-
             newEquation : function(data) {
-                $('#firstNumber').text(data.firstNumber);
+                $('#firstNumber').text( 
+                    (data.blankField == "firstNumber")? "__" : data.firstNumber
+                    );
                 App.doTextFit('#firstNumber');
 
-                $('#operator').text(data.operator);
+                $('#operator').text(
+                    data.operator
+                    );
                 App.doTextFit('#operator');
 
-                $('#secondNumber').text(data.secondNumber);
+                $('#secondNumber').text(
+                    (data.blankField == "secondNumber")? "__" : data.secondNumber
+                    );
                 App.doTextFit('#secondNumber');
 
-                $('#resultingNumber').text(data.resultingNumber);
+                $('#resultingNumber').text(
+                    (data.blankField == "resultingNumber")? "__" : data.resultingNumber
+                    );
                 App.doTextFit('#resultingNumber');
 
                 App.doTextFit('#equalSign');
+
+                $('#ChoiceA').find('.letter').text(data.choices[0]);
+                $('#ChoiceB').find('.letter').text(data.choices[1]);
+                $('#ChoiceC').find('.letter').text(data.choices[2]);
 
                 // Update the data for the current round
                 App.Host.currentCorrectAnswer = data.answer;
@@ -382,13 +380,26 @@ jQuery(function($){
                 // Verify that the answer clicked is from the current round.
                 // This prevents a 'late entry' from a player whos screen has not
                 // yet updated to the current round.
+
                 if (data.round === App.currentRound){
+
+                    console.log("answer: " +data.answer );
+                console.log("pID" + data.playerId);
+                console.log("current correct answer" + App.Host.currentCorrectAnswer);
+                console.log(data.round);
+                console.log(App.currentRound);
 
                     // Get the player's score
                     var $pScore = $('#' + data.playerId);
 
                     // Advance player's score if it is correct
-                    if( App.Host.currentCorrectAnswer === data.answer ) {
+                    if( App.Host.currentCorrectAnswer == data.answer ) {
+
+                        console.log("answer: " +data.answer );
+                console.log("pID" + data.playerId);
+                console.log("current correct answer" + App.Host.currentCorrectAnswer);
+                console.log(data.round);
+                console.log(App.currentRound);
                         // Add 5 to the player's score
                         $pScore.text( +$pScore.text() + 5 );
 
@@ -523,6 +534,7 @@ jQuery(function($){
                     answer: answer,
                     round: App.currentRound
                 }
+                console.log(App.mySocketId+ " " + answer + " " + App.currentRound);
                 IO.socket.emit('playerAnswer',data);
             },
 
@@ -566,17 +578,13 @@ jQuery(function($){
                     .html('<div class="gameOver">Get Ready!</div>');
             },
 
-            /**
-             * Show the list of words for the current round.
-             * @param data{{round: *, word: *, answer: *, list: Array}}
-             */
-            newWord : function(data) {
+            newEquation : function(data) {
                 // Create an unordered list element
                 var $list = $('<ul/>').attr('id','ulAnswers');
 
                 // Insert a list item for each word in the word list
                 // received from the server.
-                $.each(data.list, function(){
+                $.each(data.choices, function(){
                     $list                                //  <ul> </ul>
                         .append( $('<li/>')              //  <ul> <li> </li> </ul>
                             .append( $('<button/>')      //  <ul> <li> <button> </button> </li> </ul>
