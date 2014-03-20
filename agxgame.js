@@ -168,6 +168,56 @@ function sendEquation(roundNumber, gameId) {
 }
 
 function getNewEquation(roundNumber) {
+                // Determine who wins the game!
+                // var WinnerScore = 0;
+                // var WinnerName = '';
+                // var TempWinnerScore = 0;
+                // var TempWinnerName = '';
+
+                // var tempScore = [30, 5, 15];
+                // var tempName = ['jiver', 'cha', 'lyle'];
+                // var WinnerIndex = 0;
+                // var lalaScore = 0;
+
+                // for (var i = 0; i < tempScore.length; ++i) {
+                //     if(tempScore[i] > lalaScore){
+                //         lalaScore = tempScore[i];
+                //         WinnerIndex = i;
+                //     }
+                // }
+
+                // WinnerScore = tempScore[WinnerIndex];
+                // WinnerName = tempName[WinnerIndex];
+
+
+                // // for (var i = 0; i < tempScore.length; ++i) {
+
+                // //     // TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.score').text();
+                // //     // TempWinnerName = $('#player' + (i+1) + 'Score').find('.playerName').text();
+                // //     TempWinnerScore = tempScore[i];
+                // //     TempWinnerScore = tempName[i];
+                // //     console.log('Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
+                // //     console.log('Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
+                // //     if(TempWinnerScore > WinnerScore) {
+                // //         WinnerScore = TempWinnerScore;
+                // //         WinnerName = TempWinnerName;
+                // //     }
+                // // }
+
+                // //     console.log('** Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
+                // //     console.log('** Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
+
+                // // if(TempWinnerScore > WinnerScore) {
+                // //     WinnerScore = TempWinnerScore;
+                // //     WinnerName = TempWinnerName;
+                // // }
+
+
+                //     console.log('!! Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
+                //     console.log('!! Temp Score: ' + TempWinnerScore + ' WinnerScore: ' + WinnerScore);
+
+
+
     var operators = [ "+", "-", "*" ];
     var letterAnswers = [ "A", "B", "C" ];
     var operands = ["firstNumber","secondNumber","resultingNumber"];

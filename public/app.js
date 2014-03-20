@@ -400,35 +400,53 @@ jQuery(function($){
                 var WinnerName = '';
                 var TempWinnerScore = 0;
                 var TempWinnerName = '';
+                var lalaScore = 0;
+                var WinnerIndex = 0;
 
-                // var tempScore = [0,25,20,5];
-                // var tempName = ['j', 'c', 't', 'l'];
+                // var tempScore = [30,5,15];
+                // var tempName = ['j', 'c', 'l'];
+
+                // for (var i = 0; i < App.Host.players.length; ++i) {
+
+                //     // TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.score').text();
+                //     // TempWinnerName = $('#player' + (i+1) + 'Score').find('.playerName').text();
+                //     TempWinnerScore = tempScore[i];
+                //     TempWinnerScore = tempName[i];
+                //     console.log('Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
+                //     console.log('Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
+                //     if(TempWinnerScore > WinnerScore) {
+                //         WinnerScore = TempWinnerScore;
+                //         WinnerName = TempWinnerName;
+                //     }
+                // }
+
+                //     console.log('** Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
+                //     console.log('** Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
+
+                // if(TempWinnerScore > WinnerScore) {
+                //     WinnerScore = TempWinnerScore;
+                //     WinnerName = TempWinnerName;
+                // }
+
+
+                //     console.log('!! Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
+                //     console.log('!! Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
 
                 for (var i = 0; i < App.Host.players.length; ++i) {
-
                     TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.score').text();
-                    TempWinnerName = $('#player' + (i+1) + 'Score').find('.playerName').text();
-                    // TempWinnerScore = tempScore[i];
-                    // TempWinnerScore = tempName[i];
-                    console.log('Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
-                    console.log('Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
-                    if(TempWinnerScore > WinnerScore) {
-                        WinnerScore = TempWinnerScore;
-                        WinnerName = TempWinnerName;
+                    if(TempWinnerScore > lalaScore){
+                        lalaScore = TempWinnerScore;
+                        WinnerIndex = i;
                     }
+
+                    console.log('Temp Score: ' + TempWinnerScore + ' lalaScore: ' + lalaScore);
                 }
 
-                    console.log('** Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
-                    console.log('** Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
+                WinnerScore = $('#player'+ (WinnerIndex+1) + 'Score').find('.score').text();
+                WinnerName = $('#player'+ (WinnerIndex+1) + 'Score').find('.playerName').text();
 
-                if(TempWinnerScore > WinnerScore) {
-                    WinnerScore = TempWinnerScore;
-                    WinnerName = TempWinnerName;
-                }
-
-
-                    console.log('!! Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
-                    console.log('!! Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
+                    console.log('!! WinnerName: ' + WinnerName);
+                    console.log('!! WinnerScore' + WinnerScore);
 
                 $('#MathEqn').text( 'Player ' + WinnerName + ' Wins with '  + WinnerScore + ' points!!');
 
