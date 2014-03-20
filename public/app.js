@@ -642,6 +642,8 @@ jQuery(function($){
                         )
                 });
 
+                startVibrate(1000);
+
                 // Insert the list onto the screen.
                 $('#gameArea').html($list);
             },
