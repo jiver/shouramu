@@ -251,15 +251,10 @@ jQuery(function($){
                 App.Host.numPlayersInRoom = 0;
                 App.Host.maxPlayers = 0;
 
-<<<<<<< HEAD
                 while (App.Host.maxPlayers <= 1) {
                 App.Host.maxPlayers = prompt("Enter number of players [2-4]: ", "<number of players here>");
                 alert("You have entered: " + App.Host.maxPlayers );
                 }
-=======
-                App.Host.maxPlayers = prompt("Enter number of players: ", "<number of players here>");
-                alert("You have entered: " + App.Host.maxPlayers );
->>>>>>> 8f36447534d215a18308779d9333d720a5dbcd2f
 
                 App.Host.displayNewGameScreen();
                 // console.log("Game started with ID: " + App.gameId + ' by host: ' + App.mySocketId);
