@@ -432,8 +432,8 @@ jQuery(function($){
                 //     console.log('!! Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
                 //     console.log('!! Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
 
-                for (var i = 0; i < App.Host.players.length; i++) {
-                    TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.score').text();
+                for (var i = 0; i < App.Host.maxPlayers; ++i) {
+                    TempWinnerScore = parseInt($('#player'+ (i+1) + 'Score').find('.score').text());
                     if(TempWinnerScore > lalaScore){
                         lalaScore = TempWinnerScore;
                         WinnerIndex = i;
