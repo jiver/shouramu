@@ -185,6 +185,9 @@ jQuery(function($){
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
             App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
+            //App.$doc.on('devicemotion', '',App.Player.onAnswerDeviceMotion(event));
+            $(window).bind("devicemotion",App.Player.onAnswerDeviceMotion(e));
+
         },
 
         /* *************************************
@@ -470,6 +473,8 @@ jQuery(function($){
              */
             myName: '',
 
+            ans: '',
+
             /**
              * Click handler for the 'JOIN' button
              */
@@ -504,6 +509,42 @@ jQuery(function($){
                     $('#playerWaitingMessage')
                         .append('<p/>')
                         .text('Please input your name.');
+                }
+            },
+
+            onAnswerDeviceMotion: function(e) {
+                var delay = 100;
+                var threshold = 10; 
+                var a_b = 0;
+                var a_g = 0;
+                var b_g = 0;
+                rotation_rate = e.rotationRate;
+                if (rotation_rate != null) {
+                    alpha_rotation = Math.round(rotation_rate.alpha);
+                    beta_rotation = Math.round(rotation_rate.beta);
+                    gamma_rotation = Math.round(rotation_rate.gamma);
+                }
+
+                a_b = Math.abs(Math.abs(alpha_rotation) - Math.abs(beta_rotation)) > threshold;
+                a_g = Math.abs(Math.abs(alpha_rotation) - Math.abs(gamma_rotation)) > threshold;
+                b_g = Math.abs(Math.abs(beta_rotation) - Math.abs(gamma_rotation)) > threshold;
+                
+                if (a_b || a_g || b_g) {
+                    if(Math.abs(alpha_rotation) > Math.abs(beta_rotation) && Math.abs(alpha_rotation) > Math.abs(gamma_rotation)) {
+                        App.Player.ans = $('#ChoiceA').find('.letter').text();
+                    }else if(Math.abs(beta_rotation) > Math.abs(alpha_rotation) && Math.abs(beta_rotation) > Math.abs(gamma_rotation)) {
+                        App.Player.ans = $('#ChoiceB').find('.letter').text();
+                    }else if(Math.abs(gamma_rotation) > Math.abs(beta_rotation) && Math.abs(gamma_rotation) > Math.abs(alpha_rotation)) {
+                        App.Player.ans = $('#ChoiceC').find('.letter').text();
+                    }   
+                    var data = {
+                        gameId: App.gameId,
+                        playerId: App.mySocketId,
+                        answer: App.Player.ans,
+                        round: App.currentRound
+                    }         
+                    console.log(App.mySocketId+ " " + App.Player.ans + " " + App.currentRound);
+                    IO.socket.emit('playerAnswer',data);           
                 }
             },
 
