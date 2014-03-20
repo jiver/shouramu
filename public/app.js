@@ -302,10 +302,10 @@ jQuery(function($){
 
                 // Prepare the game screen with new HTML
                 App.$gameArea.html(App.$hostGame);
-                App.doTextFit('#hostWord');
+                App.doTextFit('#MathEqn');
 
                 // Begin the on-screen countdown timer
-                var $secondsLeft = $('#hostWord');
+                var $secondsLeft = $('#MathEqn');
                 App.countDown( $secondsLeft, 5, function(){
                     IO.socket.emit('hostCountdownFinished', App.gameId);
                 });
@@ -330,8 +330,8 @@ jQuery(function($){
              */
             newWord : function(data) {
                 // Insert the new word into the DOM
-                $('#hostWord').text(data.word);
-                App.doTextFit('#hostWord');
+                $('#MathEqn').text(data.word);
+                App.doTextFit('#MathEqn');
 
                 // Update the data for the current round
                 App.Host.currentCorrectAnswer = data.answer;
@@ -397,11 +397,11 @@ jQuery(function($){
 
                 // Display the winner (or tie game message)
                 if(tie){
-                    $('#hostWord').text("It's a Tie!");
+                    $('#MathEqn').text("It's a Tie!");
                 } else {
-                    $('#hostWord').text( winner + ' Wins!!' );
+                    $('#MathEqn').text( winner + ' Wins!!' );
                 }
-                App.doTextFit('#hostWord');
+                App.doTextFit('#MathEqn');
 
                 // Reset game data
                 App.Host.numPlayersInRoom = 0;
@@ -581,7 +581,7 @@ jQuery(function($){
 
             // Display the starting time on the screen.
             $el.text(startTime);
-            App.doTextFit('#hostWord');
+            App.doTextFit('#MathEqn');
 
             // console.log('Starting Countdown...');
 
@@ -592,7 +592,7 @@ jQuery(function($){
             function countItDown(){
                 startTime -= 1
                 $el.text(startTime);
-                App.doTextFit('#hostWord');
+                App.doTextFit('#MathEqn');
 
                 if( startTime <= 0 ){
                     // console.log('Countdown Finished.');
