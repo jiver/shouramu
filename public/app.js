@@ -528,7 +528,7 @@ jQuery(function($){
             onAnswerDeviceMotion: function(e) {
                 console.log(e);
                 var delay = 100;
-                var threshold = 10; 
+                var threshold = 15; 
                 var a_b = 0;
                 var a_g = 0;
                 var b_g = 0;
