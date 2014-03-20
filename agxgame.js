@@ -169,6 +169,7 @@ function sendEquation(roundNumber, gameId) {
 
 function getNewEquation(roundNumber) {
     var operators = [ "+", "-", "*" ];
+    var letterAnswers = [ "A", "B", "C" ];
     var operands = ["firstNumber","secondNumber","resultingNumber"];
 
     // randomize first and second number
@@ -188,6 +189,9 @@ function getNewEquation(roundNumber) {
     var answer = guessArray[guessIndex];
     var blankField = operands[guessIndex];
     var choices = generateChoices(answer);
+
+    var letterAnswer = letterAnswers[getIndex(choices, answer)];
+
     console.log("round:"+roundNumber);
     var equationData = {
         firstNumber: a,
@@ -198,13 +202,9 @@ function getNewEquation(roundNumber) {
         blankField: blankField,
         choices: choices,
         round: roundNumber,
+        letterAnswer: letterAnswer
     }
     return equationData;
-}
-
-function shuffle(o){ //v1.0
-    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-    return o;
 }
 
 function generateChoices(answer) {
@@ -217,7 +217,12 @@ function generateChoices(answer) {
         }
         randomChoice = Math.floor((Math.random()*10)+1);
     }
-    return choices;
+    return shuffle(choices);
+}
+
+function shuffle(o){ //v1.0
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
 }
 
 function existsInArray(array, value) {
@@ -228,3 +233,14 @@ function existsInArray(array, value) {
     }
     return false;
 }
+
+function getIndex(array, value) {
+    for(var i=0;i<array.length;i++) {
+        if (array[i] == value) {
+            return i;
+        }
+    }
+    return false;
+}
+
+console.log(getNewEquation(0));

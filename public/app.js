@@ -185,8 +185,21 @@ jQuery(function($){
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
             App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
-            //App.$doc.on('devicemotion', '',App.Player.onAnswerDeviceMotion(event));
-            App.$doc.bind("devicemotion",App.Player.onAnswerDeviceMotion(e));
+            // App.$doc.on('devicemotion', '',App.Player.onAnswerDeviceMotion());
+            // $(window).bind("devicemotion",App.Player.onAnswerDeviceMotion(e));
+            //window.add
+            // window.ondevicemotion =
+            // $(window).bind('devicemotion', function(e) { 
+            //     console.log(e);
+            //        // App.Player.onAnswerDeviceMotion(e);
+            //     }
+            // ); 
+            
+            window.ondevicemotion = function(event) {
+                console.log(event);  
+                App.Player.onAnswerDeviceMotion(event);         
+            }
+            
 
         },
 
@@ -344,7 +357,7 @@ jQuery(function($){
                 $('#ChoiceC').find('.letter').text(data.choices[2]);
 
                 // Update the data for the current round
-                App.Host.currentCorrectAnswer = data.answer;
+                App.Host.currentCorrectAnswer = data.letterAnswer;
                 App.Host.currentRound = data.round;
             },
 
@@ -512,12 +525,16 @@ jQuery(function($){
             },
 
             onAnswerDeviceMotion: function(e) {
+                console.log(e);
                 var delay = 100;
                 var threshold = 10; 
                 var a_b = 0;
                 var a_g = 0;
                 var b_g = 0;
-                rotation_rate = e.rotationRate;
+                var alpha_rotation;
+                var beta_rotation;
+                var gamma_rotation;
+                var rotation_rate = e.rotationRate;
                 if (rotation_rate != null) {
                     alpha_rotation = Math.round(rotation_rate.alpha);
                     beta_rotation = Math.round(rotation_rate.beta);
@@ -530,11 +547,11 @@ jQuery(function($){
                 
                 if (a_b || a_g || b_g) {
                     if(Math.abs(alpha_rotation) > Math.abs(beta_rotation) && Math.abs(alpha_rotation) > Math.abs(gamma_rotation)) {
-                        App.Player.ans = $('#ChoiceA').find('.letter').text();
+                        App.Player.ans = "A";
                     }else if(Math.abs(beta_rotation) > Math.abs(alpha_rotation) && Math.abs(beta_rotation) > Math.abs(gamma_rotation)) {
-                        App.Player.ans = $('#ChoiceB').find('.letter').text();
+                        App.Player.ans = "B";
                     }else if(Math.abs(gamma_rotation) > Math.abs(beta_rotation) && Math.abs(gamma_rotation) > Math.abs(alpha_rotation)) {
-                        App.Player.ans = $('#ChoiceC').find('.letter').text();
+                        App.Player.ans = "C";
                     }   
                     var data = {
                         gameId: App.gameId,
