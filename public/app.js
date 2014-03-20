@@ -319,30 +319,14 @@ jQuery(function($){
                     IO.socket.emit('hostCountdownFinished', App.gameId);
                 });
 
-                // Display the players' names on screen
-                $('#player1Score')
-                    .find('.playerName')
-                    .html(App.Host.players[0].playerName);
-
-                $('#player2Score')
-                    .find('.playerName')
-                    .html(App.Host.players[1].playerName);
-
-                // $('#player3Score')
-                //     .find('.playerName')
-                //     .html(App.Host.players[2].playerName);
-
-                // $('#player4Score')
-                //     .find('.playerName')
-                //     .html(App.Host.players[3].playerName);
-
-                console.log(App.Host.players);
-
-                // Set the Score section on screen to 0 for each player.
-                $('#player1Score').find('.score').attr('id',App.Host.players[0].mySocketId);
-                $('#player2Score').find('.score').attr('id',App.Host.players[1].mySocketId);
-                // $('#player3Score').find('.score').attr('id',App.Host.players[2].mySocketId);
-                // $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
+                // Display the players' names and scores on screen
+                for (var i = 0; i < App.Host.maxPlayers; ++i) {
+                    $('#playerScores')
+                        .append('<div  id="player' + (i+1) + 'Score" class="playerScore">' + 
+                        '<span class="playerName">' + App.Host.players[i].playerName + '</span>' +
+                        '<span class="score" id = "' + App.Host.players[i].mySocketId + '">0</span>' + 
+                        '</div>');
+                }
             },
 
             newEquation : function(data) {
@@ -420,26 +404,41 @@ jQuery(function($){
              * @param data
              */
             endGame : function(data) {
-                // Get the data for player 1 from the host screen
-                var $p1 = $('#player1Score');
-                var p1Score = +$p1.find('.score').text();
-                var p1Name = $p1.find('.playerName').text();
 
-                // Get the data for player 2 from the host screen
-                var $p2 = $('#player2Score');
-                var p2Score = +$p2.find('.score').text();
-                var p2Name = $p2.find('.playerName').text();
-
-                // Find the winner based on the scores
-                var winner = (p1Score < p2Score) ? p2Name : p1Name;
-                var tie = (p1Score === p2Score);
-
-                // Display the winner (or tie game message)
-                if(tie){
-                    $('#MathEqn').text("It's a Tie!");
-                } else {
-                    $('#MathEqn').text( winner + ' Wins!!' );
+                // Determine who wins the game!
+                var PlayerNamesScores;
+                for (var i = 0; i < App.Host.maxPlayers; ++i) {
+                    // FinalScores.push($('#player'(i+1)'Score').find('.score').text());
+                    // PlayerNames.push($('#player'(i+1)'Score').find('.playerName').text());
+                    PlayerNamesScores.push([$('#player'+ (i+1) + 'Score').find('.playerName').text(),$('#player' + (i+1) + 'Score').find('.score').text()]);
                 }
+                PlayerNamesScores = PlayerNamesScores.sort(function(a,b) {return a[1] > b[1]});
+                // FinalScores.sort();
+                var WinnerScore = PlayerNamesScores[App.Host.maxPlayers-1][1];
+                var WinnerName = PlayerNamesScores[App.Host.maxPlayers-1][0];
+
+                $('#MathEqn').text( WinnerName + ' Wins with '  + WinnerScore + ' points!!');
+
+                // // Get the data for player 1 from the host screen
+                // var $p1 = $('#player1Score');
+                // var p1Score = +$p1.find('.score').text();
+                // var p1Name = $p1.find('.playerName').text();
+
+                // // Get the data for player 2 from the host screen
+                // var $p2 = $('#player2Score');
+                // var p2Score = +$p2.find('.score').text();
+                // var p2Name = $p2.find('.playerName').text();
+
+                // // Find the winner based on the scores
+                // var winner = (p1Score < p2Score) ? p2Name : p1Name;
+                // var tie = (p1Score === p2Score);
+
+                // // Display the winner (or tie game message)
+                // if(tie){
+                //     $('#MathEqn').text("It's a Tie!");
+                // } else {
+                //     $('#MathEqn').text( winner + ' Wins!!' );
+                // }
                 App.doTextFit('#MathEqn');
 
                 // Reset game data
