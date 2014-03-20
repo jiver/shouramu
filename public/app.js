@@ -418,6 +418,14 @@ jQuery(function($){
 
                 }
 
+                if(TempWinnerScore > WinnerScore) {
+                    WinnerScore = TempWinnerScore;
+                    WinnerName = TempWinnerName;
+                }
+
+                    console.log('!! Temp Name: ' + TempWinnerName + 'WinnerName: ' + WinnerName);
+                    console.log('!! Temp Score: ' + TempWinnerScore + 'WinnerScore' + WinnerScore);
+
                 // PlayerNamesScores = PlayerNamesScores.sort(function(a,b) {return a[1] > b[1]});
                 // FinalScores.sort();
                 // console.log('PlayerNamesScores: ' + PlayerNamesScores);
@@ -425,7 +433,7 @@ jQuery(function($){
                 // console.log()
                 // var WinnerName = PlayerNamesScores[App.Host.maxPlayers-1][0];
 
-                $('#MathEqn').text( 'Player' + WinnerName + ' Wins with '  + WinnerScore + ' points!!');
+                $('#MathEqn').text( 'Player ' + WinnerName + ' Wins with '  + WinnerScore + ' points!!');
 
                 // // Get the data for player 1 from the host screen
                 // var $p1 = $('#player1Score');
