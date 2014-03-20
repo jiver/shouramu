@@ -355,19 +355,22 @@ jQuery(function($){
             },
 
             newEquation : function(data) {
-                $('#firstNumber').text(data.firstNumber);
-                App.doTextFit('#firstNumber');
+                // $('#firstNumber').text(data.firstNumber);
+                // App.doTextFit('#firstNumber');
 
-                $('#operator').text(data.operator);
-                App.doTextFit('#operator');
+                // $('#operator').text(data.operator);
+                // App.doTextFit('#operator');
 
-                $('#secondNumber').text(data.secondNumber);
-                App.doTextFit('#secondNumber');
+                // $('#secondNumber').text(data.secondNumber);
+                // App.doTextFit('#secondNumber');
 
-                $('#resultingNumber').text(data.resultingNumber);
-                App.doTextFit('#resultingNumber');
+                // $('#resultingNumber').text(data.resultingNumber);
+                // App.doTextFit('#resultingNumber');
 
-                App.doTextFit('#equalSign');
+                // App.doTextFit('#equalSign');
+
+                $('#MathEqn').text(data.firstNumber + ' ' + data.operator + ' ' + data.secondNumber  + ' = ' + data.answer);
+                App.doTextFit('#MathEqn');
 
                 // Update the data for the current round
                 App.Host.currentCorrectAnswer = data.answer;
