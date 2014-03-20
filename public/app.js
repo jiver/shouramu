@@ -27,10 +27,12 @@ jQuery(function($){
             IO.socket.on('newGameCreated', IO.onNewGameCreated );
             IO.socket.on('playerJoinedRoom', IO.playerJoinedRoom );
             IO.socket.on('beginNewGame', IO.beginNewGame );
-            IO.socket.on('newWordData', IO.onNewWordData);
+            //IO.socket.on('newWordData', IO.onNewWordData);
             IO.socket.on('hostCheckAnswer', IO.hostCheckAnswer);
             IO.socket.on('gameOver', IO.gameOver);
             IO.socket.on('error', IO.error );
+
+            IO.socket.on('newEquationData', IO.onNewEquationData);
         },
 
         /**
@@ -76,14 +78,18 @@ jQuery(function($){
          * A new set of words for the round is returned from the server.
          * @param data
          */
-        onNewWordData : function(data) {
+       /* onNewWordData : function(data) {
             // Update the current round
             App.currentRound = data.round;
 
             // Change the word for the Host and Player
             App[App.myRole].newWord(data);
-        },
+        },*/
 
+        onNewEquationData : function(data) {
+            App.currentRound = data.round;
+            App[App.myRole].newEquation(data);
+        },
         /**
          * A player answered. If this is the host, check the answer.
          * @param data
@@ -336,6 +342,23 @@ jQuery(function($){
                 // Update the data for the current round
                 App.Host.currentCorrectAnswer = data.answer;
                 App.Host.currentRound = data.round;
+            },
+
+            newEquation : function(data) {
+                $('#firstNumber').text(data.firstNumber);
+                App.doTextFit('#firstNumber');
+
+                $('#operator').text(data.operator);
+                App.doTextFit('#operator');
+
+                $('#secondNumber').text(data.secondNumber);
+                App.doTextFit('#secondNumber');
+
+                $('#resultingNumber').text(data.resultingNumber);
+                App.doTextFit('#resultingNumber');
+
+                App.doTextFit('#equalSign');
+
             },
 
             /**
