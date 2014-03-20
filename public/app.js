@@ -419,12 +419,14 @@ jQuery(function($){
             endGame : function(data) {
 
                 // Determine who wins the game!
-                var PlayerNamesScores;
+                var PlayerNamesScores[];
                 for (var i = 0; i < App.Host.maxPlayers; ++i) {
                     // FinalScores.push($('#player'(i+1)'Score').find('.score').text());
                     // PlayerNames.push($('#player'(i+1)'Score').find('.playerName').text());
                     PlayerNamesScores.push([$('#player'+ (i+1) + 'Score').find('.playerName').text(),$('#player' + (i+1) + 'Score').find('.score').text()]);
                 }
+
+
                 PlayerNamesScores = PlayerNamesScores.sort(function(a,b) {return a[1] > b[1]});
                 // FinalScores.sort();
                 var WinnerScore = PlayerNamesScores[App.Host.maxPlayers-1][1];
