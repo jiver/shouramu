@@ -404,9 +404,6 @@ jQuery(function($){
                         // Notify the server to start the next round.
                         IO.socket.emit('hostNextRound',data);
 
-                    } else {
-                        // A wrong answer was submitted, so decrement the player's score.
-                        $pScore.text( +$pScore.text() - 3 );
                     }
                 }
             },
