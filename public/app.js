@@ -281,12 +281,15 @@ jQuery(function($){
                 // Increment the number of players in the room
                 App.Host.numPlayersInRoom += 1;
 
-                // If two players have joined, start the game!
-                if (App.Host.numPlayersInRoom === 2) {
+                // If two players have joined, you may already start the game!
+                if (App.Host.numPlayersInRoom === 4) {
                     // console.log('Room is full. Almost ready!');
 
                     // Let the server know that two players are present.
                     IO.socket.emit('hostRoomFull',App.gameId);
+                } else {
+
+                    
                 }
             },
 
