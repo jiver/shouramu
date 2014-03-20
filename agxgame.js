@@ -160,6 +160,7 @@ function playerRestart(data) {
 
 function sendEquation(seedFromRoundNumber, gameId) {
     var data = getNewEquation(seedFromRoundNumber);
+    console.log(data);
     io.sockets.in(data.gameId).emit('newEquationData', data);
 }
 
@@ -173,21 +174,55 @@ function getNewEquation(seed) {
 
     //randomize operator
     var operator = operators[Math.floor(Math.random()*operators.length)];
-    var operand = operands[Math.floor(Math.random()*operands.length)];
 
     var result;
     result = (operator == "+")? a + b : result;
     result = (operator == "-")? a - b : result;
     result = (operator == "*")? a * b : result;
 
+    var guessArray = [ a, b, result ];
+    var guessIndex = Math.floor(Math.random()*guessArray.length);
+    var answer = guessArray[guessIndex];
+    var blankField = operands[guessIndex];
+    var choices = generateChoices(answer);
+
     var equationData = {
         firstNumber: a,
         operator: operator,
         secondNumber: b,
         resultingNumber: result,
-        answer: operand,
+        answer: answer,
+        blankField: blankField,
+        choices: choices,
     }
     return equationData;
+}
+
+function shuffle(o){ //v1.0
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+}
+
+function generateChoices(answer) {
+    var choices = [];
+    choices.push(answer);
+    var randomChoice = Math.floor((Math.random()*10)+1);
+    while (choices.length < 3) {
+        if ( !existsInArray(choices,randomChoice)){
+            choices.push(randomChoice);
+        }
+        randomChoice = Math.floor((Math.random()*10)+1);
+    }
+    return choices;
+}
+
+function existsInArray(array, value) {
+    for(var i=0;i<array.length;i++) {
+        if (array[i] == value) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
