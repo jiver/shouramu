@@ -229,7 +229,9 @@ jQuery(function($){
              */
             onCreateClick: function () {
                 // console.log('Clicked "Create A Game"');
+                
                 IO.socket.emit('hostCreateNewGame');
+
             },
 
             /**
@@ -241,6 +243,10 @@ jQuery(function($){
                 App.mySocketId = data.mySocketId;
                 App.myRole = 'Host';
                 App.Host.numPlayersInRoom = 0;
+                App.Host.maxPlayers = 0;
+
+                App.Host.maxPlayers = prompt("Enter number of players: ", "<number of players here>");
+                alert("You have entered: " + App.Host.maxPlayers );
 
                 App.Host.displayNewGameScreen();
                 // console.log("Game started with ID: " + App.gameId + ' by host: ' + App.mySocketId);
@@ -274,23 +280,19 @@ jQuery(function($){
                 $('#playersWaiting')
                     .append('<p/>')
                     .text('Player ' + data.playerName + ' joined the game.');
-
                 // Store the new player's data on the Host.
                 App.Host.players.push(data);
 
                 // Increment the number of players in the room
                 App.Host.numPlayersInRoom += 1;
 
-                // If two players have joined, you may already start the game!
-                if (App.Host.numPlayersInRoom === 4) {
+                // If max number of players have joined, you may already start the game!
+                if (App.Host.numPlayersInRoom == App.Host.maxPlayers) {
                     // console.log('Room is full. Almost ready!');
 
                     // Let the server know that two players are present.
                     IO.socket.emit('hostRoomFull',App.gameId);
-                } else {
-
-                    
-                }
+                } 
             },
 
             /**
