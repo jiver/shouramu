@@ -439,7 +439,7 @@ jQuery(function($){
                         WinnerIndex = i;
                     }
 
-                    console.log('Temp Score: ' + TempWinnerScore + ' lalaScore: ' + lalaScore);
+                    console.log(i + 'Temp Score: ' + TempWinnerScore + ' lalaScore: ' + lalaScore);
                 }
 
                 WinnerScore = $('#player'+ (WinnerIndex+1) + 'Score').find('.score').text();
@@ -463,6 +463,10 @@ jQuery(function($){
             restartGame : function() {
                 App.$gameArea.html(App.$templateNewGame);
                 $('#spanNewGameCode').text(App.gameId);
+
+                // Reset game data
+                App.Host.numPlayersInRoom = 0;
+                App.Host.isNewGame = true;
             }
         },
 
