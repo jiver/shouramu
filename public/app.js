@@ -396,19 +396,31 @@ jQuery(function($){
             endGame : function(data) {
 
                 // Determine who wins the game!
-                var PlayerNamesScores = [];
+                // var PlayerNamesScores = [];
+                var WinnerScore = 0;
+                var WinnerName = '';
 
                 for (var i = 0; i < App.Host.maxPlayers; ++i) {
+
+                    TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.playerName').text();
+                    TempWinnerName = $('#player' + (i+1) + 'Score').find('.score').text();
+
+                    if(TempWinnerScore > WinnerScore) {
+                        WinnerScore = TempWinnerScore;
+                        WinnerName = TempWinnerName;
+                    }
                     // FinalScores.push($('#player'(i+1)'Score').find('.score').text());
                     // PlayerNames.push($('#player'(i+1)'Score').find('.playerName').text());
-                    PlayerNamesScores.push([$('#player'+ (i+1) + 'Score').find('.playerName').text(),$('#player' + (i+1) + 'Score').find('.score').text()]);
+                    //PlayerNamesScores.push({key: $('#player'+ (i+1) + 'Score').find('.playerName').text(), value: + $('#player' + (i+1) + 'Score').find('.score').text()});
+
                 }
 
-
-                PlayerNamesScores = PlayerNamesScores.sort(function(a,b) {return a[1] > b[1]});
+                // PlayerNamesScores = PlayerNamesScores.sort(function(a,b) {return a[1] > b[1]});
                 // FinalScores.sort();
-                var WinnerScore = PlayerNamesScores[App.Host.maxPlayers-1][1];
-                var WinnerName = PlayerNamesScores[App.Host.maxPlayers-1][0];
+                // console.log('PlayerNamesScores: ' + PlayerNamesScores);
+                // var WinnerScore = PlayerNamesScores[App.Host.maxPlayers-1][1];
+                // console.log()
+                // var WinnerName = PlayerNamesScores[App.Host.maxPlayers-1][0];
 
                 $('#MathEqn').text( WinnerName + ' Wins with '  + WinnerScore + ' points!!');
 
