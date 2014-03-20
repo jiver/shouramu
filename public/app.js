@@ -373,7 +373,7 @@ jQuery(function($){
                 $('#ChoiceC').find('.letter').text(data.choices[2]);
 
                 // Update the data for the current round
-                App.Host.currentCorrectAnswer = data.answer;
+                App.Host.currentCorrectAnswer = data.letterAnswer;
                 App.Host.currentRound = data.round;
             },
 
@@ -548,11 +548,11 @@ jQuery(function($){
                 
                 if (a_b || a_g || b_g) {
                     if(Math.abs(alpha_rotation) > Math.abs(beta_rotation) && Math.abs(alpha_rotation) > Math.abs(gamma_rotation)) {
-                        App.Player.ans = $('#ChoiceA').find('.letter').text();
+                        App.Player.ans = "A";
                     }else if(Math.abs(beta_rotation) > Math.abs(alpha_rotation) && Math.abs(beta_rotation) > Math.abs(gamma_rotation)) {
-                        App.Player.ans = $('#ChoiceB').find('.letter').text();
+                        App.Player.ans = "B";
                     }else if(Math.abs(gamma_rotation) > Math.abs(beta_rotation) && Math.abs(gamma_rotation) > Math.abs(alpha_rotation)) {
-                        App.Player.ans = $('#ChoiceC').find('.letter').text();
+                        App.Player.ans = "C";
                     }   
                     var data = {
                         gameId: App.gameId,
