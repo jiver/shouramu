@@ -244,7 +244,8 @@ html, body {
 #MathEqn {
     height: 100%;
     width: 100%;
-    color: #A22FB0;
+    color: #0BCED6;
+	margin-top: 10%;
     /*float: left;*/
 }
 
@@ -253,6 +254,7 @@ html, body {
     width: 100%;
     position: fixed;
     top: 0;
+	margin-left: -1%;
 }
 
 .playerScore {
@@ -267,7 +269,7 @@ html, body {
 
 .playerScore span {
     display: inline-block;
-    font-size: 1.4EM;
+    font-size: 3.4EM;
     padding: 2%;
     min-width: 10%;
     margin: 0;
