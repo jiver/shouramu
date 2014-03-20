@@ -396,57 +396,42 @@ jQuery(function($){
             endGame : function(data) {
 
                 // Determine who wins the game!
-                // var PlayerNamesScores = [];
                 var WinnerScore = 0;
                 var WinnerName = '';
                 var TempWinnerScore = 0;
                 var TempWinnerName = '';
 
-                for (var i = 0; i < App.Host.maxPlayers; ++i) {
+                // var tempScore = [0,25,20,5];
+                // var tempName = ['j', 'c', 't', 'l'];
 
-                    TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.playerName').text();
-                    TempWinnerName = $('#player' + (i+1) + 'Score').find('.score').text();
-                    console.log('Temp Name: ' + TempWinnerName + 'WinnerName: ' + WinnerName);
-                    console.log('Temp Score: ' + TempWinnerScore + 'WinnerScore' + WinnerScore);
+                for (var i = 0; i < App.Host.players.length; ++i) {
+
+                    TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.score').text();
+                    TempWinnerName = $('#player' + (i+1) + 'Score').find('.playerName').text();
+                    // TempWinnerScore = tempScore[i];
+                    // TempWinnerScore = tempName[i];
+                    console.log('Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
+                    console.log('Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
                     if(TempWinnerScore > WinnerScore) {
                         WinnerScore = TempWinnerScore;
                         WinnerName = TempWinnerName;
                     }
-                    // FinalScores.push($('#player'(i+1)'Score').find('.score').text());
-                    // PlayerNames.push($('#player'(i+1)'Score').find('.playerName').text());
-                    //PlayerNamesScores.push({key: $('#player'+ (i+1) + 'Score').find('.playerName').text(), value: + $('#player' + (i+1) + 'Score').find('.score').text()});
-
                 }
 
-                // PlayerNamesScores = PlayerNamesScores.sort(function(a,b) {return a[1] > b[1]});
-                // FinalScores.sort();
-                // console.log('PlayerNamesScores: ' + PlayerNamesScores);
-                // var WinnerScore = PlayerNamesScores[App.Host.maxPlayers-1][1];
-                // console.log()
-                // var WinnerName = PlayerNamesScores[App.Host.maxPlayers-1][0];
+                    console.log('** Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
+                    console.log('** Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
 
-                $('#MathEqn').text( 'Player' + WinnerName + ' Wins with '  + WinnerScore + ' points!!');
+                if(TempWinnerScore > WinnerScore) {
+                    WinnerScore = TempWinnerScore;
+                    WinnerName = TempWinnerName;
+                }
 
-                // // Get the data for player 1 from the host screen
-                // var $p1 = $('#player1Score');
-                // var p1Score = +$p1.find('.score').text();
-                // var p1Name = $p1.find('.playerName').text();
 
-                // // Get the data for player 2 from the host screen
-                // var $p2 = $('#player2Score');
-                // var p2Score = +$p2.find('.score').text();
-                // var p2Name = $p2.find('.playerName').text();
+                    console.log('!! Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
+                    console.log('!! Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
 
-                // // Find the winner based on the scores
-                // var winner = (p1Score < p2Score) ? p2Name : p1Name;
-                // var tie = (p1Score === p2Score);
+                $('#MathEqn').text( 'Player ' + WinnerName + ' Wins with '  + WinnerScore + ' points!!');
 
-                // // Display the winner (or tie game message)
-                // if(tie){
-                //     $('#MathEqn').text("It's a Tie!");
-                // } else {
-                //     $('#MathEqn').text( winner + ' Wins!!' );
-                // }
                 App.doTextFit('#MathEqn');
 
                 // Reset game data
