@@ -3,6 +3,7 @@ var gameSocket;
 // Create moniker for random name generator
 var moniker = require('moniker');
 var bitly = require('bitly');
+var MAX_ROUNDS = 10
 
 /**
  * This function is called by index.js to initialize a new game instance.
@@ -69,7 +70,7 @@ function hostPrepareGame(gameId) {
  */
 function hostStartGame(gameId) {
     console.log('Game Started.');
-    sendWord(0,gameId);
+    sendEquation(0,gameId);
 };
 
 /**
@@ -77,9 +78,9 @@ function hostStartGame(gameId) {
  * @param data Sent from the client. Contains the current round and gameId (room)
  */
 function hostNextRound(data) {
-    if(data.round < wordPool.length ){
-        // Send a new set of words back to the host and players.
-        sendWord(data.round, data.gameId);
+    if(data.round < MAX_ROUNDS ){
+        // Send a new equation to the user
+        sendEquation(data.round, data.gameId);
     } else {
         // If the current round exceeds the number of words, send the 'gameOver' event.
         io.sockets.in(data.gameId).emit('gameOver',data);
@@ -195,11 +196,12 @@ function getNewEquation(seed) {
  * @param wordPoolIndex
  * @param gameId The room identifier
  */
+ /**
 function sendWord(wordPoolIndex, gameId) {
     var data = getWordData(wordPoolIndex);
     io.sockets.in(data.gameId).emit('newWordData', data);
 }
-
+*/
 /**
  * This function does all the work of getting a new words from the pile
  * and organizing the data to be sent back to the clients.
@@ -207,6 +209,7 @@ function sendWord(wordPoolIndex, gameId) {
  * @param i The index of the wordPool.
  * @returns {{round: *, word: *, answer: *, list: Array}}
  */
+ /**
 function getWordData(i){
     // Randomize the order of the available words.
     // The first element in the randomized array will be displayed on the host screen.
@@ -230,11 +233,12 @@ function getWordData(i){
 
     return wordData;
 }
-
+*/
 /*
  * Javascript implementation of Fisher-Yates shuffle algorithm
  * http://stackoverflow.com/questions/2450954/how-to-randomize-a-javascript-array
  */
+ /**
 function shuffle(array) {
     var currentIndex = array.length;
     var temporaryValue;
@@ -255,6 +259,7 @@ function shuffle(array) {
 
     return array;
 }
+*/
 
 /**
  * Each element in the array provides data for a single round in the game.
@@ -265,6 +270,7 @@ function shuffle(array) {
  *
  * @type {Array}
  */
+ /**
 var wordPool = [
     {
         "words"  : [ "sale","seal","ales","leas" ],
@@ -316,3 +322,4 @@ var wordPool = [
         "decoys" : [ "snout","tongs","stent","tense","terns","santo","stony","toons","snort","stint" ]
     }
 ]
+*/

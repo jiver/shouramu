@@ -27,10 +27,12 @@ jQuery(function($){
             IO.socket.on('newGameCreated', IO.onNewGameCreated );
             IO.socket.on('playerJoinedRoom', IO.playerJoinedRoom );
             IO.socket.on('beginNewGame', IO.beginNewGame );
-            IO.socket.on('newWordData', IO.onNewWordData);
+            //IO.socket.on('newWordData', IO.onNewWordData);
             IO.socket.on('hostCheckAnswer', IO.hostCheckAnswer);
             IO.socket.on('gameOver', IO.gameOver);
             IO.socket.on('error', IO.error );
+
+            IO.socket.on('newEquationData', IO.onNewEquationData);
         },
 
         /**
@@ -76,14 +78,18 @@ jQuery(function($){
          * A new set of words for the round is returned from the server.
          * @param data
          */
-        onNewWordData : function(data) {
+       /* onNewWordData : function(data) {
             // Update the current round
             App.currentRound = data.round;
 
             // Change the word for the Host and Player
             App[App.myRole].newWord(data);
-        },
+        },*/
 
+        onNewEquationData : function(data) {
+            App.currentRound = data.round;
+            App[App.myRole].newEquation(data);
+        },
         /**
          * A player answered. If this is the host, check the answer.
          * @param data
@@ -245,8 +251,10 @@ jQuery(function($){
                 App.Host.numPlayersInRoom = 0;
                 App.Host.maxPlayers = 0;
 
-                App.Host.maxPlayers = prompt("Enter number of players: ", "<number of players here>");
+                while (App.Host.maxPlayers <= 1) {
+                App.Host.maxPlayers = prompt("Enter number of players [2-4]: ", "<number of players here>");
                 alert("You have entered: " + App.Host.maxPlayers );
+                }
 
                 App.Host.displayNewGameScreen();
                 // console.log("Game started with ID: " + App.gameId + ' by host: ' + App.mySocketId);
@@ -319,9 +327,19 @@ jQuery(function($){
                     .find('.playerName')
                     .html(App.Host.players[1].playerName);
 
+                $('#player3Score')
+                    .find('.playerName')
+                    .html(App.Host.players[2].playerName);
+
+                $('#player4Score')
+                    .find('.playerName')
+                    .html(App.Host.players[3].playerName);
+
                 // Set the Score section on screen to 0 for each player.
                 $('#player1Score').find('.score').attr('id',App.Host.players[0].mySocketId);
                 $('#player2Score').find('.score').attr('id',App.Host.players[1].mySocketId);
+                $('#player3Score').find('.score').attr('id',App.Host.players[2].mySocketId);
+                $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
             },
 
             /**
@@ -336,6 +354,23 @@ jQuery(function($){
                 // Update the data for the current round
                 App.Host.currentCorrectAnswer = data.answer;
                 App.Host.currentRound = data.round;
+            },
+
+            newEquation : function(data) {
+                $('#firstNumber').text(data.firstNumber);
+                App.doTextFit('#firstNumber');
+
+                $('#operator').text(data.operator);
+                App.doTextFit('#operator');
+
+                $('#secondNumber').text(data.secondNumber);
+                App.doTextFit('#secondNumber');
+
+                $('#resultingNumber').text(data.resultingNumber);
+                App.doTextFit('#resultingNumber');
+
+                App.doTextFit('#equalSign');
+
             },
 
             /**
@@ -454,15 +489,21 @@ jQuery(function($){
                 // collect data to send to the server
                 var data = {
                     gameId : +($('#inputGameId').val()),
-                    playerName : $('#inputPlayerName').val() || 'anon'
+                    playerName : $('#inputPlayerName').val()
                 };
 
+                if(data.playerName != '') {
                 // Send the gameId and playerName to the server
                 IO.socket.emit('playerJoinGame', data);
 
                 // Set the appropriate properties for the current player.
                 App.myRole = 'Player';
                 App.Player.myName = data.playerName;
+                } else {
+                    $('#playerWaitingMessage')
+                        .append('<p/>')
+                        .text('Please input your name.');
+                }
             },
 
             /**
@@ -506,10 +547,11 @@ jQuery(function($){
                 if(IO.socket.socket.sessionid === data.mySocketId){
                     App.myRole = 'Player';
                     App.gameId = data.gameId;
+                    App.playerName = data.playerName;
 
                     $('#playerWaitingMessage')
                         .append('<p/>')
-                        .text('Joined Game ' + data.gameId + '. Please wait for game to begin.');
+                        .text(data.playerName + ' joined Game ' + data.gameId + '. Please wait for game to begin.');
                 }
             },
 

@@ -230,9 +230,9 @@ html, body {
 #wordArea {
     font-family: 'Quicksand', sans-serif;
     font-weight: 400;
-    position: absolute;
+    /*position: absolute;*/
     height: 50%;
-    width: 50%;
+    width: 100%;
     margin: auto;
     bottom: 0;
     left: 0;
@@ -245,16 +245,6 @@ html, body {
     width: 100%;
     color: #A22FB0;
 }
-
-/*#MathEqn h2, #btnPlayerRestart h3 {
-    font-size: 161px;
-    line-height: 1em;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 400;
-    margin: 0;
-    padding: 0;
-    text-transform: uppercase;
-}*/
 
 #playerScores {
     height: 10%;
