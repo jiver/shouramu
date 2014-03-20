@@ -290,8 +290,9 @@ html, body {
     width: 100%;
     position: fixed;
     bottom: 0px;
+	text-align: center;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: 25%;
 }
 
 .Choice {
@@ -307,7 +308,7 @@ html, body {
 
 .Choice span {
     display: inline-block;
-    font-size: 1.4EM;
+    font-size: 4.4EM;
     padding: 2%;
     min-width: 10%;
     margin: 0;
