@@ -185,15 +185,6 @@ jQuery(function($){
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
             App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
-            // App.$doc.on('devicemotion', '',App.Player.onAnswerDeviceMotion());
-            // $(window).bind("devicemotion",App.Player.onAnswerDeviceMotion(e));
-            //window.add
-            // window.ondevicemotion =
-            // $(window).bind('devicemotion', function(e) { 
-            //     console.log(e);
-            //        // App.Player.onAnswerDeviceMotion(e);
-            //     }
-            // ); 
             
             window.ondevicemotion = function(event) {
                 console.log(event);  
@@ -372,23 +363,12 @@ jQuery(function($){
 
                 if (data.round === App.currentRound){
 
-                    console.log("answer: " +data.answer );
-                console.log("pID" + data.playerId);
-                console.log("current correct answer" + App.Host.currentCorrectAnswer);
-                console.log(data.round);
-                console.log(App.currentRound);
-
                     // Get the player's score
                     var $pScore = $('#' + data.playerId);
 
                     // Advance player's score if it is correct
                     if( App.Host.currentCorrectAnswer == data.answer ) {
 
-                        console.log("answer: " +data.answer );
-                console.log("pID" + data.playerId);
-                console.log("current correct answer" + App.Host.currentCorrectAnswer);
-                console.log(data.round);
-                console.log(App.currentRound);
                         // Add 5 to the player's score
                         $pScore.text( +$pScore.text() + 5 );
 
