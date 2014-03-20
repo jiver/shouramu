@@ -404,8 +404,8 @@ jQuery(function($){
 
                 for (var i = 0; i < App.Host.maxPlayers; ++i) {
 
-                    TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.playerName').text();
-                    TempWinnerName = $('#player' + (i+1) + 'Score').find('.score').text();
+                    TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.score').text();
+                    TempWinnerName = $('#player' + (i+1) + 'Score').find('.playerName').text();
                     console.log('Temp Name: ' + TempWinnerName + 'WinnerName: ' + WinnerName);
                     console.log('Temp Score: ' + TempWinnerScore + 'WinnerScore' + WinnerScore);
                     if(TempWinnerScore > WinnerScore) {
