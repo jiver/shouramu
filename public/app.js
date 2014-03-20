@@ -404,9 +404,6 @@ jQuery(function($){
                         // Notify the server to start the next round.
                         IO.socket.emit('hostNextRound',data);
 
-                    } else {
-                        // A wrong answer was submitted, so decrement the player's score.
-                        $pScore.text( +$pScore.text() - 3 );
                     }
                 }
             },
@@ -419,7 +416,8 @@ jQuery(function($){
             endGame : function(data) {
 
                 // Determine who wins the game!
-                var PlayerNamesScores[];
+                var PlayerNamesScores = [];
+
                 for (var i = 0; i < App.Host.maxPlayers; ++i) {
                     // FinalScores.push($('#player'(i+1)'Score').find('.score').text());
                     // PlayerNames.push($('#player'(i+1)'Score').find('.playerName').text());
@@ -529,7 +527,7 @@ jQuery(function($){
             onAnswerDeviceMotion: function(e) {
                 console.log(e);
                 var delay = 100;
-                var threshold = 10; 
+                var threshold = 15; 
                 var a_b = 0;
                 var a_g = 0;
                 var b_g = 0;
@@ -643,6 +641,8 @@ jQuery(function($){
                             )
                         )
                 });
+
+                navigator.vibrate(1000);
 
                 // Insert the list onto the screen.
                 $('#gameArea').html($list);
