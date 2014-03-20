@@ -186,7 +186,7 @@ jQuery(function($){
             App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
             //App.$doc.on('devicemotion', '',App.Player.onAnswerDeviceMotion(event));
-            $(window).bind("devicemotion",App.Player.onAnswerDeviceMotion(e));
+            App.$doc.bind("devicemotion",App.Player.onAnswerDeviceMotion(e));
 
         },
 
