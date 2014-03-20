@@ -155,6 +155,40 @@ function playerRestart(data) {
    *                       *
    ************************* */
 
+
+
+function sendEquation(seedFromRoundNumber, gameId) {
+    var data = getNewEquation(seedFromRoundNumber);
+    io.sockets.in(data.gameId).emit('newEquationData', data);
+}
+
+function getNewEquation(seed) {
+    var operators = [ "+", "-", "*" ];
+    var operands = ["firstNumber","secondNumber","resultingNumber"];
+
+    // randomize first and second number
+    var a = Math.floor((Math.random()*10)+1);
+    var b = Math.floor((Math.random()*10)+1);
+
+    //randomize operator
+    var operator = operators[Math.floor(Math.random()*operators.length)];
+    var operand = operands[Math.floor(Math.random()*operands.length)];
+
+    var result;
+    result = (operator == "+")? a + b : result;
+    result = (operator == "-")? a - b : result;
+    result = (operator == "*")? a * b : result;
+
+    var equationData = {
+        firstNumber: a,
+        operator: operator,
+        secondNumber: b,
+        resultingNumber: result,
+        answer: operand,
+    }
+    return equationData;
+}
+
 /**
  * Get a word for the host, and a list of words for the player.
  *
