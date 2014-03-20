@@ -251,8 +251,15 @@ jQuery(function($){
                 App.Host.numPlayersInRoom = 0;
                 App.Host.maxPlayers = 0;
 
+<<<<<<< HEAD
+                while (App.Host.maxPlayers <= 1) {
+                App.Host.maxPlayers = prompt("Enter number of players [2-4]: ", "<number of players here>");
+                alert("You have entered: " + App.Host.maxPlayers );
+                }
+=======
                 App.Host.maxPlayers = prompt("Enter number of players: ", "<number of players here>");
                 alert("You have entered: " + App.Host.maxPlayers );
+>>>>>>> 8f36447534d215a18308779d9333d720a5dbcd2f
 
                 App.Host.displayNewGameScreen();
                 // console.log("Game started with ID: " + App.gameId + ' by host: ' + App.mySocketId);
@@ -325,9 +332,19 @@ jQuery(function($){
                     .find('.playerName')
                     .html(App.Host.players[1].playerName);
 
+                $('#player3Score')
+                    .find('.playerName')
+                    .html(App.Host.players[2].playerName);
+
+                $('#player4Score')
+                    .find('.playerName')
+                    .html(App.Host.players[3].playerName);
+
                 // Set the Score section on screen to 0 for each player.
                 $('#player1Score').find('.score').attr('id',App.Host.players[0].mySocketId);
                 $('#player2Score').find('.score').attr('id',App.Host.players[1].mySocketId);
+                $('#player3Score').find('.score').attr('id',App.Host.players[2].mySocketId);
+                $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
             },
 
             /**
@@ -477,15 +494,21 @@ jQuery(function($){
                 // collect data to send to the server
                 var data = {
                     gameId : +($('#inputGameId').val()),
-                    playerName : $('#inputPlayerName').val() || 'anon'
+                    playerName : $('#inputPlayerName').val()
                 };
 
+                if(data.playerName != '') {
                 // Send the gameId and playerName to the server
                 IO.socket.emit('playerJoinGame', data);
 
                 // Set the appropriate properties for the current player.
                 App.myRole = 'Player';
                 App.Player.myName = data.playerName;
+                } else {
+                    $('#playerWaitingMessage')
+                        .append('<p/>')
+                        .text('Please input your name.');
+                }
             },
 
             /**
@@ -529,10 +552,11 @@ jQuery(function($){
                 if(IO.socket.socket.sessionid === data.mySocketId){
                     App.myRole = 'Player';
                     App.gameId = data.gameId;
+                    App.playerName = data.playerName;
 
                     $('#playerWaitingMessage')
                         .append('<p/>')
-                        .text('Joined Game ' + data.gameId + '. Please wait for game to begin.');
+                        .text(data.playerName + ' joined Game ' + data.gameId + '. Please wait for game to begin.');
                 }
             },
 
