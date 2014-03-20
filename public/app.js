@@ -185,10 +185,15 @@ jQuery(function($){
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
             App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
-            //App.$doc.on('devicemotion', '',App.Player.onAnswerDeviceMotion(event));
+            App.$doc.on('devicemotion', '',App.Player.onAnswerDeviceMotion());
             //window.on("devicemotion",App.Player.onAnswerDeviceMotion(e));
             //window.add
-            window.addEventListener('devicemotion',App.Player.onAnswerDeviceMotion(event),true);
+            //window.ondevicemotion =
+            $(window).bind('devicemotion', function(e) { 
+                    App.Player.onAnswerDeviceMotion(e);
+                }
+            ); 
+            
 
         },
 
@@ -514,14 +519,14 @@ jQuery(function($){
                 }
             },
 
-            onAnswerDeviceMotion: function(event) {
-                console.log(event);
+            onAnswerDeviceMotion: function(e) {
+                console.log(e);
                 var delay = 100;
                 var threshold = 10; 
                 var a_b = 0;
                 var a_g = 0;
                 var b_g = 0;
-                rotation_rate = event.rotationRate;
+                rotation_rate = e.rotationRate;
                 if (rotation_rate != null) {
                     alpha_rotation = Math.round(rotation_rate.alpha);
                     beta_rotation = Math.round(rotation_rate.beta);
