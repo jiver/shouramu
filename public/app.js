@@ -325,24 +325,31 @@ jQuery(function($){
                     .find('.playerName')
                     .html(App.Host.players[1].playerName);
 
-                $('#player3Score')
-                    .find('.playerName')
-                    .html(App.Host.players[2].playerName);
+                // $('#player3Score')
+                //     .find('.playerName')
+                //     .html(App.Host.players[2].playerName);
 
-                $('#player4Score')
-                    .find('.playerName')
-                    .html(App.Host.players[3].playerName);
+                // $('#player4Score')
+                //     .find('.playerName')
+                //     .html(App.Host.players[3].playerName);
+
+                console.log(App.Host.players);
 
                 // Set the Score section on screen to 0 for each player.
                 $('#player1Score').find('.score').attr('id',App.Host.players[0].mySocketId);
                 $('#player2Score').find('.score').attr('id',App.Host.players[1].mySocketId);
-                $('#player3Score').find('.score').attr('id',App.Host.players[2].mySocketId);
-                $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
+                // $('#player3Score').find('.score').attr('id',App.Host.players[2].mySocketId);
+                // $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
             },
 
             newEquation : function(data) {
 
-                $('#MathEqn').text(data.firstNumber + ' ' + data.operator + ' ' + data.secondNumber  + ' = ' + data.answer);
+                $('#MathEqn').text(
+                    ((data.blankField == "firstNumber")? "__" : data.firstNumber) + ' ' + 
+                    data.operator + ' ' + 
+                    ((data.blankField == "secondNumber")? "__" : data.secondNumber)  + ' = ' + 
+                    ((data.blankField == "resultingNumber")? "__" : data.resultingNumber)
+                    );
                 App.doTextFit('#MathEqn');
 
                 $('#ChoiceA').find('.letter').text(data.choices[0]);
