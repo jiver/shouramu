@@ -260,7 +260,6 @@ html, body {
     width: 100%;
     position: fixed;
     top: 0;
-    float: right;
 }
 
 .playerScore {
@@ -270,6 +269,7 @@ html, body {
     font-family: 'Quicksand', sans-serif;
     font-weight: 400;
     height: 100%;
+    float: right;
 }
 
 .playerScore span {
