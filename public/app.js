@@ -185,14 +185,20 @@ jQuery(function($){
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
             App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
-            App.$doc.on('devicemotion', '',App.Player.onAnswerDeviceMotion());
-            //window.on("devicemotion",App.Player.onAnswerDeviceMotion(e));
+            // App.$doc.on('devicemotion', '',App.Player.onAnswerDeviceMotion());
+            // $(window).bind("devicemotion",App.Player.onAnswerDeviceMotion(e));
             //window.add
-            //window.ondevicemotion =
-            $(window).bind('devicemotion', function(e) { 
-                    App.Player.onAnswerDeviceMotion(e);
-                }
-            ); 
+            // window.ondevicemotion =
+            // $(window).bind('devicemotion', function(e) { 
+            //     console.log(e);
+            //        // App.Player.onAnswerDeviceMotion(e);
+            //     }
+            // ); 
+            
+            window.ondevicemotion = function(event) {
+                console.log(event);  
+                App.Player.onAnswerDeviceMotion(event);         
+            }
             
 
         },
@@ -526,7 +532,10 @@ jQuery(function($){
                 var a_b = 0;
                 var a_g = 0;
                 var b_g = 0;
-                rotation_rate = e.rotationRate;
+                var alpha_rotation;
+                var beta_rotation;
+                var gamma_rotation;
+                var rotation_rate = e.rotationRate;
                 if (rotation_rate != null) {
                     alpha_rotation = Math.round(rotation_rate.alpha);
                     beta_rotation = Math.round(rotation_rate.beta);
