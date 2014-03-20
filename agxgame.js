@@ -190,7 +190,7 @@ function getNewEquation(roundNumber) {
     var blankField = operands[guessIndex];
     var choices = generateChoices(answer);
 
-    var letterAnswer = letterAnswers[existsInArray(choices, answer)];
+    var letterAnswer = letterAnswers[getIndex(choices, answer)];
 
     console.log("round:"+roundNumber);
     var equationData = {
@@ -228,8 +228,19 @@ function shuffle(o){ //v1.0
 function existsInArray(array, value) {
     for(var i=0;i<array.length;i++) {
         if (array[i] == value) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function getIndex(array, value) {
+    for(var i=0;i<array.length;i++) {
+        if (array[i] == value) {
             return i;
         }
     }
     return false;
 }
+
+console.log(getNewEquation(0));
