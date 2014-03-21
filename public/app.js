@@ -422,12 +422,11 @@ jQuery(function($){
                     TempWinnerScore = parseInt($('#player'+ (i+1) + 'Score').find('.score').text());
                     if(TempWinnerScore > lalaScore){
                         lalaScore = TempWinnerScore;
-                        WinnerIndex = i;
-						//isTie = 0;
-                        tempWinnerScores.push(TempWinnerScore);
+                        WinnerIndex = i;  
                     }
+                    tempWinnerScores.push(TempWinnerScore);
                 }
-
+           
                 if ( App.getDuplicatedValue(tempWinnerScores) == lalaScore ) {
                     isTie = 1;
                 }
