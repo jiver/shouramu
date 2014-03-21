@@ -416,17 +416,20 @@ jQuery(function($){
                 var lalaScore = 0;
                 var WinnerIndex = 0;
 				var isTie = 0;
+                var tempWinnerScores = [];
 
                 for (var i = 0; i < App.Host.maxPlayers; ++i) {
                     TempWinnerScore = parseInt($('#player'+ (i+1) + 'Score').find('.score').text());
                     if(TempWinnerScore > lalaScore){
                         lalaScore = TempWinnerScore;
                         WinnerIndex = i;
-						isTie = 0;
+						//isTie = 0;
+                        tempWinnerScores.push(TempWinnerScore);
                     }
-					if(TempWinnerScore == lalaScore){
-						isTie = 1;
-					}
+                }
+
+                if ( getDuplicatedValue(tempWinnerScores) == lalaScore ) {
+                    isTie = 1;
                 }
 
 				if(isTie == 1){
@@ -435,7 +438,8 @@ jQuery(function($){
 							WinnerName = WinnerName + $('#player'+ (i+1) + 'Score').find('.playerName').text() + ' ';
 						}
 					}
-					$('#MathEqn').text( 'We have liver between: ' + WinnerName + ' with '  + lalaScore + ' points!!');
+					//$('#MathEqn').text( 'We have liver between: ' + WinnerName + ' with '  + lalaScore + ' points!!');
+                    $('#MathEqn').text( 'We have liver!');
 				} else {
 					WinnerName = $('#player'+ (WinnerIndex+1) + 'Score').find('.playerName').text();
 					$('#MathEqn').text( 'Player ' + WinnerName + ' Wins with '  + lalaScore + ' points!!');
@@ -719,6 +723,17 @@ jQuery(function($){
                     maxFontSize:300
                 }
             );
+        },
+
+        function getDuplicatedValue(array) {
+            var valuesSoFar = [];
+            for (var i = 0; i < array.length; ++i) {
+                var value = array[i];
+                if (valuesSoFar.indexOf(value) !== -1) {
+                    return value;
+                }
+                valuesSoFar.push(value);
+            }
         }
 
     };
