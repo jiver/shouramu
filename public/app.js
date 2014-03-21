@@ -427,7 +427,7 @@ jQuery(function($){
                     tempWinnerScores.push(TempWinnerScore);
                 }
            
-                if ( App.getDuplicatedValue(tempWinnerScores) == lalaScore ) {
+                if ( App.getDuplicatedValue(tempWinnerScores, lalaScore) == lalaScore ) {
                     isTie = 1;
                 }
 
@@ -724,14 +724,16 @@ jQuery(function($){
             );
         },
 
-        getDuplicatedValue : function(array) {
+        getDuplicatedValue : function(array, maxValue) {
             var valuesSoFar = [];
             for (var i = 0; i < array.length; ++i) {
                 var value = array[i];
                 if (valuesSoFar.indexOf(value) !== -1) {
                     return value;
                 }
-                valuesSoFar.push(value);
+                if (value == maxValue) {
+                    valuesSoFar.push(value);
+                }
             }
         }
 
