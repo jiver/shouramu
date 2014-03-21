@@ -431,7 +431,7 @@ jQuery(function($){
 
 				if(isTie == 1){
 					for (var i = 0; i < App.Host.maxPlayers; ++i) {
-						if(parseInt($('#player'+ (i+1) + 'Score').find('.score').text()) == lalascore){
+						if(parseInt($('#player'+ (i+1) + 'Score').find('.score').text()) == lalaScore){
 							WinnerName = WinnerName + $('#player'+ (i+1) + 'Score').find('.playerName').text() + ' ';
 						}
 					}
