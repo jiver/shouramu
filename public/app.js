@@ -428,7 +428,7 @@ jQuery(function($){
                     }
                 }
 
-                if ( getDuplicatedValue(tempWinnerScores) == lalaScore ) {
+                if ( App.getDuplicatedValue(tempWinnerScores) == lalaScore ) {
                     isTie = 1;
                 }
 
@@ -725,7 +725,7 @@ jQuery(function($){
             );
         },
 
-        function getDuplicatedValue(array) {
+        getDuplicatedValue : function(array) {
             var valuesSoFar = [];
             for (var i = 0; i < array.length; ++i) {
                 var value = array[i];
