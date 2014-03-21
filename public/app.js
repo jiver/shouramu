@@ -170,6 +170,7 @@ jQuery(function($){
             App.$templateIntroScreen = $('#intro-screen-template').html();
             App.$templateNewGame = $('#create-game-template').html();
             App.$templateJoinGame = $('#join-game-template').html();
+			App.$templateH2p = $('#h2p-template').html();
             App.$hostGame = $('#host-game-template').html();
         },
 
@@ -179,7 +180,7 @@ jQuery(function($){
         bindEvents: function () {
             // Host
             App.$doc.on('click', '#btnCreateGame', App.Host.onCreateClick);
-
+			App.$doc.on('click', '#btnH2p', App.Host.onH2pClick);
             // Player
             App.$doc.on('click', '#btnJoinGame', App.Player.onJoinClick);
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
@@ -199,7 +200,7 @@ jQuery(function($){
          * *********************************** */
 
         /**
-         * Show the initial Anagrammatix Title Screen
+         * Show the initial Best Game Ever Title Screen
          * (with Start and Join buttons)
          */
         showInitScreen: function() {
@@ -265,6 +266,18 @@ jQuery(function($){
                 // console.log("Game started with ID: " + App.gameId + ' by host: ' + App.mySocketId);
             },
 
+			 /**
+             * Handler for H2P .
+             */
+            onH2pClick: function () {
+           
+                App.$gameArea.html(App.$templateH2p);
+                //IO.socket.emit('hostCreateNewGame');
+
+            },
+			
+			
+			
             /**
              * Show the Host screen containing the game URL and unique game ID
              */
@@ -402,53 +415,34 @@ jQuery(function($){
                 var TempWinnerName = '';
                 var lalaScore = 0;
                 var WinnerIndex = 0;
-
-                // var tempScore = [30,5,15];
-                // var tempName = ['j', 'c', 'l'];
-
-                // for (var i = 0; i < App.Host.players.length; ++i) {
-
-                //     // TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.score').text();
-                //     // TempWinnerName = $('#player' + (i+1) + 'Score').find('.playerName').text();
-                //     TempWinnerScore = tempScore[i];
-                //     TempWinnerScore = tempName[i];
-                //     console.log('Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
-                //     console.log('Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
-                //     if(TempWinnerScore > WinnerScore) {
-                //         WinnerScore = TempWinnerScore;
-                //         WinnerName = TempWinnerName;
-                //     }
-                // }
-
-                //     console.log('** Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
-                //     console.log('** Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
-
-                // if(TempWinnerScore > WinnerScore) {
-                //     WinnerScore = TempWinnerScore;
-                //     WinnerName = TempWinnerName;
-                // }
-
-
-                //     console.log('!! Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
-                //     console.log('!! Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
+				var isTie = 0;
 
                 for (var i = 0; i < App.Host.maxPlayers; ++i) {
                     TempWinnerScore = parseInt($('#player'+ (i+1) + 'Score').find('.score').text());
                     if(TempWinnerScore > lalaScore){
                         lalaScore = TempWinnerScore;
                         WinnerIndex = i;
+						isTie = 0;
                     }
-
-                    console.log(i + 'Temp Score: ' + TempWinnerScore + ' lalaScore: ' + lalaScore);
+					if(TempWinnerScore == lalaScore){
+						isTie = 1;
+					}
                 }
 
-                WinnerScore = $('#player'+ (WinnerIndex+1) + 'Score').find('.score').text();
-                WinnerName = $('#player'+ (WinnerIndex+1) + 'Score').find('.playerName').text();
+				if(isTie == 1){
+					for (var i = 0; i < App.Host.maxPlayers; ++i) {
+						if(parseInt($('#player'+ (i+1) + 'Score').find('.score').text()) == lalascore){
+							WinnerName = WinnerName + $('#player'+ (i+1) + 'Score').find('.playerName').text() + ' ';
+						}
+					}
+					$('#MathEqn').text( 'We have liver between: ' + WinnerName + ' with '  + lalaScore + ' points!!');
+				} else {
+					WinnerName = $('#player'+ (WinnerIndex+1) + 'Score').find('.playerName').text();
+					$('#MathEqn').text( 'Player ' + WinnerName + ' Wins with '  + lalaScore + ' points!!');
+				}
 
                     console.log('!! WinnerName: ' + WinnerName);
                     console.log('!! WinnerScore' + WinnerScore);
-
-                $('#MathEqn').text( 'Player ' + WinnerName + ' Wins with '  + WinnerScore + ' points!!');
 
                 App.doTextFit('#MathEqn');
 
@@ -597,7 +591,8 @@ jQuery(function($){
                 }
                 IO.socket.emit('playerRestart',data);
                 App.currentRound = 0;
-                $('#gameArea').html("<h3>Waiting on host to start new game.</h3>");
+                $('#gameArea').html;
+				//App.$gameArea.html(App.$templateWaiting);
             },
 
             /**

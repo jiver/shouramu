@@ -17,6 +17,7 @@
 
     <div id="gameArea">
         <!-- This is where the templates defined below will be used -->
+		<label for="inputGameId">Please ask Master Jiver!!!</label>
     </div>
 
     <!-- Main Title Screen that appears when the page loads for the first time -->
@@ -32,6 +33,7 @@
 
                 <button id="btnCreateGame" class="btn left">CREATE</button>
                 <button id="btnJoinGame" class="btn right">JOIN</button>
+				<button id="btnH2p" class="btn extra" style="margin-top: 2%">How to Play</button>
                 <div style="clear:both"></div>
             </div>
 
@@ -50,6 +52,20 @@
             <div id="spanNewGameCode" class="gameId">Error!</div>
 
             <div id="playersWaiting"></div>
+        </div>
+    </script>
+	
+	<!-- This scrreen appears when a player clicks "H2P" on the Title Screen -->
+    <script id="h2p-template" type="text/template">
+        <div class="h2pWrapper">
+            <div class="info">
+                <label for="inputPlayerName">Hello</label>
+            </div>
+
+            <div class="info">
+                <label for="inputGameId">Please ask Master Jiver!!!</label>
+            </div>
+
         </div>
     </script>
 

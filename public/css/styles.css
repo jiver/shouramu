@@ -78,6 +78,8 @@ html, body {
    ****************************** */
 
 #gameArea {
+	font-size: 1.5em;
+	color: blue;
     height: 100%;
     width: 100%;
 }
@@ -154,6 +156,15 @@ html, body {
     width: 90%;
 }
 
+/* ******************************
+           H2P SCREEN
+      (How to play-template)
+   ****************************** */
+
+.h2pWrapper {
+	font-size: 1.5em;
+	color: blue;
+}
 
 /* ******************************
            JOIN SCREEN
@@ -208,7 +219,7 @@ html, body {
 
 #ulAnswers li {
     width: 100%;
-    height: 16.6%;
+    height: 33.33%;
 }
 
 .btnAnswer {
