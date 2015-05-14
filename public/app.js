@@ -376,6 +376,18 @@ jQuery(function($){
 
                 App.Host.updateEquation(data.validWordsArray, data.validWordsState);
 
+                var $secondsLeft = $('#TIMER');
+                App.countDown2( $secondsLeft, 30, function(){
+                    // Prepare data to send to the server
+                            var data = {
+                                gameId : App.gameId,
+                                round : App.currentRound
+                            };
+
+                    IO.socket.emit('hostNextRound', data);
+                });
+
+
                 // Update the data for the current round
                 App.Host.currentRound = data.round;
                 App.Host.validWordsArray = data.validWordsArray;
@@ -708,6 +720,35 @@ jQuery(function($){
                 startTime -= 1
                 $el.text(startTime);
                 App.doTextFit('#MathEqn');
+
+                if( startTime <= 0 ){
+                    // console.log('Countdown Finished.');
+
+                    // Stop the timer and do the callback.
+                    clearInterval(timer);
+                    callback();
+                    return;
+                }
+            }
+
+        },
+
+        countDown2 : function( $el, startTime, callback) {
+
+            // Display the starting time on the screen.
+            $el.text(startTime);
+            App.doTextFit('#TIMER');
+
+            // console.log('Starting Countdown...');
+
+            // Start a 1 second timer
+            var timer = setInterval(countItDown,1000);
+
+            // Decrement the displayed timer value on each 'tick'
+            function countItDown(){
+                startTime -= 1
+                $el.text(startTime);
+                App.doTextFit('#TIMER');
 
                 if( startTime <= 0 ){
                     // console.log('Countdown Finished.');
