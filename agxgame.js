@@ -295,8 +295,6 @@ function getIndex(array, value) {
     return false;
 }
 
-console.log(getNewEquation(0));
-
 function get_game_word() {
     var fs = require('fs');
     return fs.readFileSync('test/sources.txt').toString().split("\r\n");
@@ -316,7 +314,7 @@ function init_word_state(arr) {
 }
 
 function get_subwords(str) {
-	file = "test/words/" + str + ".txt"
+	file = "test/words/" + str + ".txt";
 	var fs = require('fs');
 	return fs.readFileSync(file).toString().split("\r\n");
 }
