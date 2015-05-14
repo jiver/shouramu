@@ -172,6 +172,7 @@ function getNewAnagram(roundNumber) {
     
     var temp = roundNumber%2;
 
+	/*
     var valid_words = [
         ["plot","lop","lot","opt","pol","pot","top"],
         ["sword","words","rows","word","pol","pot","top"]
@@ -197,13 +198,14 @@ function getNewAnagram(roundNumber) {
          round: roundNumber
      }
      return anagramData;
+	*/
     
-    /*
+    
     var source_words = get_game_word();
     var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
     console.log(game_word);
     var jumble_word = get_jumbled_word(game_word);
-    var valid_words = get_subwords(game_word,4);
+    var valid_words = get_subwords(game_word);
     var vword_states = init_word_state(valid_words.length);
 
     var anagramData = {
@@ -214,7 +216,7 @@ function getNewAnagram(roundNumber) {
         round: roundNumber
     }
     return anagramData;
-    */
+    
 }
 
 function getNewEquation(roundNumber) {
@@ -313,33 +315,10 @@ function init_word_state(arr) {
     return arr;
 }
 
-function build_dictionary() {
-    var fs = require('fs');
-    var array = fs.readFileSync('test/dict.txt').toString().split("\r\n");
-    return array;
-}
-
-function extract_english_words(str_arr,dict){
-    var arr = [];
-    for (var str in str_arr){
-        if (dict.indexOf(str_arr[str]) > -1) {
-            arr.push(str_arr[str]);
-        }    
-    }
-    return arr;    
-}
-
-function get_subwords(str,floor){
-    var subwords = [];
-    var dict = build_dictionary();
-    for(var i = floor;i<str.length+1;i++){
-        var result = permutations(str,i);
-        var valid_words = extract_english_words(result,dict);
-        for (var word in valid_words) {
-            subwords.push(valid_words[word]);
-        }
-    }
-    return subwords;
+function get_subwords(str) {
+	file = "test/words/" + str + ".txt"
+	var fs = require('fs');
+	return fs.readFileSync(file).toString().split("\r\n");
 }
 
 function permutations(array, r) {                                                  

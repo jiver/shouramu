@@ -2,8 +2,7 @@ console.time("Runtime");
 var source_words = get_game_word();
 var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
 var jumble_word = get_jumble_word(game_word);
-//var valid_words = extract_english_words(get_subwords(game_word,4),build_dictionary());
-var valid_words = get_subwords(game_word,4);
+var valid_words = get_subwords(game_word);
 console.log(jumble_word);
 console.log(valid_words);
 console.timeEnd("Runtime");
@@ -27,32 +26,10 @@ function init_word_state(arr) {
     return arr;
 }
 
-function build_dictionary() {
+function get_subwords(str) {
+	file = "words/" + str + ".txt"
 	var fs = require('fs');
-	return fs.readFileSync('dict.txt').toString().split("\r\n");
-}
-
-function extract_english_words(str_arr,dict){
-    var arr = [];
-    for (var str in str_arr){
-        if (dict.indexOf(str_arr[str]) > -1) {
-            arr.push(str_arr[str]);
-        }    
-    }
-    return arr;    
-}
-
-function get_subwords(str,floor){
-    var subwords = [];
-    var dict = build_dictionary();
-    for(var i = floor;i<str.length+1;i++){
-        var result = permutations(str,i);
-        var valid_words = extract_english_words(result,dict);
-        for (var word in valid_words) {
-            subwords.push(valid_words[word]);
-        }
-    }
-    return subwords;
+	return fs.readFileSync(file).toString().split("\r\n");
 }
 
 function permutations(array, r) {                                                  
