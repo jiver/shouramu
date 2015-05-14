@@ -169,7 +169,7 @@ function sendEquation(roundNumber, gameId) {
 }
 
 function getNewAnagram(roundNumber) {
-    
+    /*
     var temp = roundNumber%2;
 
     var valid_words = [
@@ -197,8 +197,8 @@ function getNewAnagram(roundNumber) {
          round: roundNumber
      }
      return anagramData;
-
-    /*
+    */
+    
     var source_words = get_game_word();
     var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
     console.log(game_word);
@@ -214,7 +214,7 @@ function getNewAnagram(roundNumber) {
         round: roundNumber
     }
     return anagramData;
-    */
+    
 }
 
 function getNewEquation(roundNumber) {
