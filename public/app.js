@@ -205,7 +205,6 @@ jQuery(function($){
             var commands = {
                     'play *word_guess': function (word_guess) {
                            App.Player.submitGuess(word_guess);
-                           alert("Guess: "+word_guess);
                         }
                 };
 
@@ -375,25 +374,27 @@ jQuery(function($){
                 $('#MathEqn').text(data.puzzleWord);
                 App.doTextFitMax('#MathEqn');
 
-                var temmmpp = "";
-                for(var i=0;i<data.validWordsArray.length;i++){
-                    if(data.validWordsState[i]) {
-                        temmmpp += data.validWordsArray[i] + "<br>";
-                    }else{
-                        temmmpp += data.validWordsArray[i].replace(/\w/gi, "_ ") + "<br>";
-                    }
-                }
-				
-			
-                $('#ValidWords').html(temmmpp);
-                App.doTextFit('#ValidWords');
+                App.Host.updateEquation(data.validWordsArray, data.validWordsState);
 
                 // Update the data for the current round
-                //App.Host.currentCorrectAnswer = data.letterAnswer;
                 App.Host.currentRound = data.round;
                 App.Host.validWordsArray = data.validWordsArray;
                 App.Host.validWordsState = data.validWordsState;
                 App.Host.longestWordsArray = data.longestWordsArray;
+            },
+
+            updateEquation: function(validWordsArray, validWordsState) {
+                var temmmpp = "";
+                for(var i=0;i<validWordsArray.length;i++){
+                    if(validWordsState[i]) {
+                        temmmpp += validWordsArray[i] + "<br>";
+                    }else{
+                        temmmpp += validWordsArray[i].replace(/\w/gi, "_ ") + "<br>";
+                    }
+                }
+                
+                $('#ValidWords').html(temmmpp);
+                App.doTextFit('#ValidWords');
             },
 
             /**
@@ -422,6 +423,8 @@ jQuery(function($){
                         App.Host.validWordsState[answer_index] = 1;
 
                         answer_index = App.Host.longestWordsArray.indexOf(data.answer.toLowerCase())
+
+                        App.Host.updateEquation(App.Host.validWordsArray, App.Host.validWordsState);
 
                         if ( answer_index >= 0) {
                             console.log("Index of "+data.answer+": "+answer_index);
@@ -627,10 +630,10 @@ jQuery(function($){
                 annyang.start();
                 
 
-                //navigator.vibrate(1000);
+                navigator.vibrate(1000);
 
                 // Insert the list onto the screen.
-                $('#gameArea').html('<button type="button" id="RecordButton">Answer</button>');
+                $('#gameArea').html('<div class="gameOver" id="WordGuess">Get Ready!</div>');
             },
 
             /*resumeRecord: function() {
@@ -652,6 +655,7 @@ jQuery(function($){
                     round: App.currentRound
                 }         
                 console.log(App.mySocketId+ " " + App.Player.ans + " " + App.currentRound);
+                $('#WordGuess').text("Your Guess: " + word_guess);
                 IO.socket.emit('playerAnswer',data);           
             },
 
