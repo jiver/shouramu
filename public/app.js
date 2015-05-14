@@ -184,7 +184,7 @@ jQuery(function($){
             // Player
             App.$doc.on('click', '#btnJoinGame', App.Player.onJoinClick);
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
-            App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
+            //App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
             //App.$doc.on('mousedown', '#RecordButton', App.Player.resumeRecord);
             //App.$doc.on('mouseup', '#RecordButton', App.Player.pauseRecord);
@@ -396,6 +396,7 @@ jQuery(function($){
             },
 
             updateEquation: function(validWordsArray, validWordsState) {
+               /*
                 var temmmpp = "";
                 for(var i=0;i<validWordsArray.length;i++){
                     if(validWordsState[i]) {
@@ -407,6 +408,35 @@ jQuery(function($){
                 
                 $('#ValidWords').html(temmmpp);
                 App.doTextFit('#ValidWords');
+                */
+
+                for(var i=0;i<validWordsArray.length;i++){
+                    if(validWordsState[i]) {
+                        validWordsArray[i] = validWordsArray[i] ;
+                    }else{
+                        validWordsArray[i] = validWordsArray[i].replace(/\w/gi, "_ ");
+                    }
+                }
+
+                // Create an unordered list element
+                var $list = $('<ul/>').attr('id','triple');
+
+                // Insert a list item for each word in the word list
+                // received from the server.
+                $.each(validWordsArray, function(){
+                    $list                                //  <ul> </ul>
+                        .append( $('<li/>')              //  <ul> <li> </li> </ul>
+                            .append( $('<button/>')      //  <ul> <li> <button> </button> </li> </ul>
+                                .addClass('btnAnswer')   //  <ul> <li> <button class='btnAnswer'> </button> </li> </ul>
+                                .addClass('btn')         //  <ul> <li> <button class='btnAnswer'> </button> </li> </ul>
+                                .val(this)               //  <ul> <li> <button class='btnAnswer' value='word'> </button> </li> </ul>
+                                .html(this)              //  <ul> <li> <button class='btnAnswer' value='word'>word</button> </li> </ul>
+                            )
+                        )
+                });
+
+                $('#ValidWords').html($list);
+                //App.doTextFit('#ValidWords');
             },
 
             /**
