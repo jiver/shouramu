@@ -92,22 +92,10 @@
     <!-- This is the 'Host' screen. It displays the word for each player to match -->
     <script id="host-game-template" type="text/template">
         <div id="wordArea">
+            <div id="ValidWords" >choices</div>
             <div id="MathEqn" >5</div>
         </div>
         <div id="playerScores">
-
-        </div>
-
-        <div id="Choices">
-            <div  id="ChoiceA" class="Choice">
-                <span class="letter">A</span>
-            </div>
-            <div  id="ChoiceB" class="Choice">
-                <span class="letter">B</span>
-            </div>
-            <div  id="ChoiceC" class="Choice">
-                <span class="letter">C</span>
-            </div>
         </div>
     </script>
 
@@ -120,6 +108,8 @@
         It's used so the titles and game words fit properly on any size screen.
         https://github.com/STRML/textFit   -->
     <script src="libs/textFit.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.6.0/annyang.min.js"></script>
 
     <!-- FastClick is used to eliminate the 300ms delay when clicking items on a mobile device
         https://github.com/ftlabs/fastclick -->

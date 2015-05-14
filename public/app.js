@@ -191,7 +191,8 @@ jQuery(function($){
                 console.log(event);  
                 App.Player.onAnswerDeviceMotion(event);         
             }
-            
+
+
 
         },
 
@@ -348,13 +349,20 @@ jQuery(function($){
 
             newEquation : function(data) {
 
-                $('#MathEqn').text(
-                    ((data.blankField == "firstNumber")? "__" : data.firstNumber) + ' ' + 
-                    data.operator + ' ' + 
-                    ((data.blankField == "secondNumber")? "__" : data.secondNumber)  + ' = ' + 
-                    ((data.blankField == "resultingNumber")? "__" : data.resultingNumber)
-                    );
+                $('#MathEqn').text(data.puzzleWord);
                 App.doTextFit('#MathEqn');
+
+                var temmmpp = "";
+                for(var i=0;i<5;i++){
+                    if(data.validWordsState[i]) {
+                        temmmpp += " " + data.validWordsArray[i];
+                    }else{
+                        temmmpp += " _";
+                    }
+                }
+
+                $('#ValidWords').text(temmmpp);
+                App.doTextFit('#ValidWords');
 
                 $('#ChoiceA').find('.letter').text(data.choices[0]);
                 $('#ChoiceB').find('.letter').text(data.choices[1]);
@@ -393,6 +401,7 @@ jQuery(function($){
                             gameId : App.gameId,
                             round : App.currentRound
                         }
+
 
                         // Notify the server to start the next round.
                         IO.socket.emit('hostNextRound',data);
@@ -567,6 +576,8 @@ jQuery(function($){
              *  Click handler for the Player hitting a word in the word list.
              */
             onPlayerAnswerClick: function() {
+
+                //annyang.start();
                 // console.log('Clicked Answer Button');
                 var $btn = $(this);      // the tapped button
                 var answer = $btn.val(); // The tapped word

@@ -164,8 +164,28 @@ function playerRestart(data) {
 function sendEquation(roundNumber, gameId) {
     var data = getNewEquation(roundNumber);
     console.log(data);
-    io.sockets.in(data.gameId).emit('newEquationData', data);
+    //io.sockets.in(data.gameId).emit('newEquationData', data);
+
+    var word_data = getNewAnagram(roundNumber);
+    io.sockets.in(word_data.gameId).emit('newEquationData', word_data);
 }
+
+function getNewAnagram(roundNumber) {
+    var valid_words = ["cool","loco","col","coo","loo"];
+    var vword_state = [0,0,0,0,0];
+    var longest_words = ["cool","loco"];
+    var jumbled_word = "oolc"; 
+
+    var anagramData = {
+        validWordsArray: valid_words,
+        validWordsState: vword_state,
+        longestWordsArray: longest_words,
+        puzzleWord: jumbled_word,
+        round: roundNumber
+    }
+    return anagramData;
+}
+
 
 function getNewEquation(roundNumber) {
                 // Determine who wins the game!
