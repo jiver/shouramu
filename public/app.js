@@ -731,11 +731,11 @@ jQuery(function($){
             textFit(
                 $(el)[0],
                 {
-                    alignHoriz:false,
-                    alignVert:false,
+                    alignHoriz:true,
+                    alignVert: false,
                     widthOnly:true,
                     reProcess:true,
-                    maxFontSize:80
+                    maxFontSize:52
                 }
             );
         },
@@ -748,7 +748,7 @@ jQuery(function($){
                     alignVert:false,
                     widthOnly:true,
                     reProcess:true,
-                    maxFontSize:200
+                    maxFontSize:150
                 }
             );
         },
