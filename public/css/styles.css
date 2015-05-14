@@ -304,12 +304,18 @@ html, body {
 }
 
 .playerScore .score {
-    text-align: center;
-    background-color: #A8FF56;
-    float: right;
+    /*text-align: center;
+    background-color: white;
+    position: relative;
+    border: 4px inset ;*/
+    background-color: white;
+    position: relative;
+    border: 4px inset ;
 }
 
 .playerScore .playerName {
+    /*background-image: url("../images/wood.png");
+    position: relative;*/
     width: 100%;
     background-color: #ECFFE0;
     float: right;
