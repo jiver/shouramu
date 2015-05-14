@@ -163,97 +163,31 @@ function playerRestart(data) {
 
 
 function sendEquation(roundNumber, gameId) {
-    //var data = getNewEquation(roundNumber);
-    //console.log(data);
-    //io.sockets.in(data.gameId).emit('newEquationData', data);
-
     var word_data = getNewAnagram(roundNumber);
     console.log(word_data);
     io.sockets.in(word_data.gameId).emit('newEquationData', word_data);
 }
 
 function getNewAnagram(roundNumber) {
-    var temp = roundNumber%2;
+    var currRoundNumber = roundNumber%2;
 
-    var valid_words = [
-        ["plot","lop","lot","opt","pol","pot","top"],
-        ["sword","words","rows","word","pol","pot","top"]
-    ];
-    var vword_state = [
-        [0,0,0,0,0],
-        [0,0,0,0,0,0,0]
-    ];
-    var longest_words = [
-        ["plot"],
-        ["sword","words"]
-    ];
-    var jumbled_word = [
-        "tolp",
-        "rowds"
-    ]; 
+    var source_words = get_game_word();
+    var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
+    var jumble_word = jumble_word(game_word);
+    var valid_words = extract_english_words(get_subwords(game_word,3),build_dictionary());
+    var vword_state = init_word_state(valid_words.length);
 
     var anagramData = {
-        validWordsArray: valid_words[temp],
-        validWordsState: vword_state[temp],
-        longestWordsArray: longest_words[temp],
-        puzzleWord: jumbled_word[temp],
+        validWordsArray: valid_words[currRoundNumber],
+        validWordsState: vword_state[currRoundNumber],
+        longestWordsArray: source_words[currRoundNumber],
+        puzzleWord: jumbled_word[currRoundNumber],
         round: roundNumber
     }
     return anagramData;
 }
 
-
 function getNewEquation(roundNumber) {
-                // Determine who wins the game!
-                // var WinnerScore = 0;
-                // var WinnerName = '';
-                // var TempWinnerScore = 0;
-                // var TempWinnerName = '';
-
-                // var tempScore = [30, 5, 15];
-                // var tempName = ['jiver', 'cha', 'lyle'];
-                // var WinnerIndex = 0;
-                // var lalaScore = 0;
-
-                // for (var i = 0; i < tempScore.length; ++i) {
-                //     if(tempScore[i] > lalaScore){
-                //         lalaScore = tempScore[i];
-                //         WinnerIndex = i;
-                //     }
-                // }
-
-                // WinnerScore = tempScore[WinnerIndex];
-                // WinnerName = tempName[WinnerIndex];
-
-
-                // // for (var i = 0; i < tempScore.length; ++i) {
-
-                // //     // TempWinnerScore = $('#player'+ (i+1) + 'Score').find('.score').text();
-                // //     // TempWinnerName = $('#player' + (i+1) + 'Score').find('.playerName').text();
-                // //     TempWinnerScore = tempScore[i];
-                // //     TempWinnerScore = tempName[i];
-                // //     console.log('Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
-                // //     console.log('Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
-                // //     if(TempWinnerScore > WinnerScore) {
-                // //         WinnerScore = TempWinnerScore;
-                // //         WinnerName = TempWinnerName;
-                // //     }
-                // // }
-
-                // //     console.log('** Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
-                // //     console.log('** Temp Score: ' + TempWinnerScore + ' WinnerScore' + WinnerScore);
-
-                // // if(TempWinnerScore > WinnerScore) {
-                // //     WinnerScore = TempWinnerScore;
-                // //     WinnerName = TempWinnerName;
-                // // }
-
-
-                //     console.log('!! Temp Name: ' + TempWinnerName + ' WinnerName: ' + WinnerName);
-                //     console.log('!! Temp Score: ' + TempWinnerScore + ' WinnerScore: ' + WinnerScore);
-
-
-
     var operators = [ "+", "-", "*" ];
     var letterAnswers = [ "A", "B", "C" ];
     var operands = ["firstNumber","secondNumber","resultingNumber"];
@@ -331,33 +265,55 @@ function getIndex(array, value) {
 
 console.log(getNewEquation(0));
 
-function lyle(str){
-    var i = 2;
-    var text = "";
-    for(;i<str.length;i++){
-        var result = permutations(str,i);
-        var letter;
-        for (letter in result) {
-            WriteLine(result[letter]);
-            text += result[letter];
-        }
-    }
-    return text;
+function get_game_word() {
+    var fs = require('fs');
+    return fs.readFileSync('sources.txt').toString().split("\r\n");
 }
 
-function getNewAnagram(array, r) {  
-    //var valid_words = ["cool","loco","col","coo","loo"];
-    //var longest_words = ["cool","loco"];
-    //var jumbled_word = "oloc"; 
+function jumble_word(str){
+    random_words = permutations(str,str.length);
+    return random_words[Math.floor(Math.random() * (random_words.length - 1) + 1)];
+}
 
-    //var anagramData = {
-    //    validWordsArray: valid_words,
-    //    longestWordsArray: longest_words,
-    //    puzzleWord: jumbled_word,
-    //    round: roundNumber
-    //}
-    //return anagramData;
+function init_word_state(arr) {
+    var arr = [];
+    for(var i = 0;i<arr.length;i++) {
+        arr.push(0);
+    }
+    return arr;
+}
 
+function build_dictionary() {
+    var fs = require('fs');
+    var array = fs.readFileSync('dict.txt').toString().split("\r\n");
+    return array;
+}
+
+function extract_english_words(str_arr,dict){
+    var str;
+    var arr = [];
+    for (str in str_arr){
+        if (dict.indexOf(str_arr[str]) > -1) {
+            arr.push(str_arr[str]);
+        }    
+    }
+    return arr;    
+}
+
+function get_subwords(str,floor){
+    var i = floor;
+    var subwords = [];
+    for(;i<str.length+1;i++){
+        var result = permutations(str,i);
+        var word;
+        for (word in result) {
+            subwords.push(result[word]);
+        }
+    }
+    return subwords;
+}
+
+function permutations(array, r) {                                                  
     // Algorythm copied from Python `itertools.permutations`.                      
     var n = array.length;                                                          
     if (r === undefined) {                                                         
@@ -375,7 +331,7 @@ function getNewAnagram(array, r) {
         cycles.push(i);                                                            
     }                                                                              
     var results = [];                                                              
-    var res = [];                                                                  
+    var res = new Array();                                                                  
     for (var k = 0; k < r; k++) {                                                  
         res.push(array[indices[k]]);                                               
     }                                                                              
@@ -400,7 +356,6 @@ function getNewAnagram(array, r) {
                 for (var k = 0; k < r; k++) {                        
                     res.push(array[indices[k]]);                                   
                 }
-                
                 results.push(res.join(""));                                                 
                 broken = true;                                                     
                 break;                                                             
@@ -408,9 +363,9 @@ function getNewAnagram(array, r) {
         }                                                                          
         if (broken === false) {                                                    
             break;                                                                 
-        }                                                                          
-    }                                                                              
-    return unique(results); 
+        }
+    }
+    return unique(results);                                                                
 }
 
 function unique(arr) {

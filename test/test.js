@@ -1,12 +1,38 @@
-var sample = "strength";
-var valid_words = extract_english_words(get_subwords(sample,3),build_dictionary());
+console.time("Runtime");
+//var source_words = [ "strength", "corneas", "ransoms" ];
+//var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
+var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
+var jumble_word = jumble_word(game_word);
+var valid_words = extract_english_words(get_subwords(game_word,3),build_dictionary());
+console.log(jumble_word);
 console.log(valid_words);
+console.timeEnd("Runtime");
 
+function get_game_word() {
+    var fs = require('fs');
+    source_words = fs.readFileSync('sources.txt').toString().split("\r\n");
+    while (true) {
+        
+    }
+        
+}
+
+function jumble_word(str){
+    random_words = permutations(str,str.length);
+    return random_words[Math.floor(Math.random() * (random_words.length - 1) + 1)];
+}
+
+function init_word_state(arr) {
+    var arr = [];
+    for(var i = 0;i<arr.length;i++) {
+        arr.push(0);
+    }
+    return arr;
+}
 
 function build_dictionary() {
 	var fs = require('fs');
-	var array = fs.readFileSync('dict.txt').toString().split("\r\n");
-	return array;
+	return fs.readFileSync('dict.txt').toString().split("\r\n");
 }
 
 function extract_english_words(str_arr,dict){
