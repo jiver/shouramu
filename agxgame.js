@@ -207,7 +207,7 @@ function getNewAnagram(roundNumber) {
     console.log("RAND :"+ rand);
     var game_word = source_words[ rand ];
     //console.log(game_word);
-    var jumble_word = game_word;
+    var jumble_word = shuffle_string(game_word);
     var valid_words = get_subwords(game_word);
     var vword_states = init_word_state(valid_words.length);
 
@@ -280,6 +280,12 @@ function shuffle(o){ //v1.0
     return o;
 }
 
+function shuffle_string(str){
+	var o = str.split("");
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o.join("");
+}
+
 function existsInArray(array, value) {
     for(var i=0;i<array.length;i++) {
         if (array[i] == value) {
@@ -301,11 +307,6 @@ function getIndex(array, value) {
 function get_game_word() {
     var fs = require('fs');
     return fs.readFileSync('test/sources.txt').toString().split(",");
-}
-
-function get_jumbled_word(str){
-    var random_words = permutations(str,str.length);
-    return random_words[Math.floor(Math.random() * (random_words.length - 1) + 1)];
 }
 
 function init_word_state(arr) {

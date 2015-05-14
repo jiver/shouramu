@@ -1,11 +1,12 @@
 console.time("Runtime");
 var source_words = get_game_word();
 var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
-var jumble_word = game_word;
+var jumble_word = shuffle_string(game_word);
 var valid_words = get_subwords(game_word);
 console.log(jumble_word);
 console.log(valid_words);
 console.timeEnd("Runtime");
+
 
 function get_game_word() {
     var fs = require('fs');
@@ -13,9 +14,10 @@ function get_game_word() {
     return source_words;
 }
 
-function get_jumble_word(str){
-    random_words = permutations(str,str.length);
-    return random_words[Math.floor(Math.random() * (random_words.length - 1) + 1)];
+function shuffle_string(str){
+	var o = str.split("");
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o.join("");
 }
 
 function init_word_state(arr) {
