@@ -186,14 +186,32 @@ jQuery(function($){
             App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
             App.$doc.on('click', '.btnAnswer',App.Player.onPlayerAnswerClick);
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
+            //App.$doc.on('mousedown', '#RecordButton', App.Player.resumeRecord);
+            //App.$doc.on('mouseup', '#RecordButton', App.Player.pauseRecord);
             
-            window.ondevicemotion = function(event) {
-                console.log(event);  
-                App.Player.onAnswerDeviceMotion(event);         
+           /* $( "#RecordButton" ).onmousedown = function(event) {
+                App.Player.resumeRecord;
             }
 
+            $( "#RecordButton" ).onmouseup = function(event) {
+                App.Player.pauseRecord;
+            }*/
 
+            /*window.ondevicemotion = function(event) {
+                console.log(event);  
+                App.Player.onAnswerDeviceMotion(event);         
+            }*/
 
+            var commands = {
+                    'play *word_guess': function (word_guess) {
+                           App.Player.submitGuess(word_guess);
+                           alert("Guess: "+word_guess);
+                        }
+                };
+
+            annyang.addCommands(commands);
+            
+                
         },
 
         /* *************************************
@@ -235,7 +253,12 @@ jQuery(function($){
             /**
              * A reference to the correct answer for the current round.
              */
-            currentCorrectAnswer: '',
+
+            validWordsArray : [],
+
+            validWordsState : [],
+            
+            longestWordsArray : [],
 
             /**
              * Handler for the "Start" button on the Title Screen.
@@ -364,13 +387,12 @@ jQuery(function($){
                 $('#ValidWords').text(temmmpp);
                 App.doTextFit('#ValidWords');
 
-                $('#ChoiceA').find('.letter').text(data.choices[0]);
-                $('#ChoiceB').find('.letter').text(data.choices[1]);
-                $('#ChoiceC').find('.letter').text(data.choices[2]);
-
                 // Update the data for the current round
-                App.Host.currentCorrectAnswer = data.letterAnswer;
+                //App.Host.currentCorrectAnswer = data.letterAnswer;
                 App.Host.currentRound = data.round;
+                App.Host.validWordsArray = data.validWordsArray;
+                App.Host.validWordsState = data.validWordsState;
+                App.Host.longestWordsArray = data.longestWordsArray;
             },
 
             /**
@@ -387,24 +409,34 @@ jQuery(function($){
                     // Get the player's score
                     var $pScore = $('#' + data.playerId);
 
+                    // check against valid words
+                    var answer_index = App.Host.validWordsArray.indexOf(data.answer.toLowerCase());
+                    console.log("Index of"+data.answer+": "+answer_index);
+
                     // Advance player's score if it is correct
-                    if( App.Host.currentCorrectAnswer == data.answer ) {
+                    if( answer_index >= 0) {
 
                         // Add 5 to the player's score
                         $pScore.text( +$pScore.text() + 5 );
+                        App.Host.validWordsState[answer_index] = 1;
 
-                        // Advance the round
-                        App.currentRound += 1;
+                        answer_index = App.Host.longestWordsArray.indexOf(data.answer.toLowerCase())
 
-                        // Prepare data to send to the server
-                        var data = {
-                            gameId : App.gameId,
-                            round : App.currentRound
+                        if ( answer_index >= 0) {
+                            console.log("Index of "+data.answer+": "+answer_index);
+                            // Advance the round
+                            App.currentRound += 1;
+
+                            // Prepare data to send to the server
+                            var data = {
+                                gameId : App.gameId,
+                                round : App.currentRound
+                            }
+
+
+                            // Notify the server to start the next round.
+                            IO.socket.emit('hostNextRound',data);
                         }
-
-
-                        // Notify the server to start the next round.
-                        IO.socket.emit('hostNextRound',data);
 
                     }
                 }
@@ -532,69 +564,6 @@ jQuery(function($){
                 }
             },
 
-            onAnswerDeviceMotion: function(e) {
-                console.log(e);
-                var delay = 100;
-                var threshold = 10; 
-                var a_b = 0;
-                var a_g = 0;
-                var b_g = 0;
-                var alpha_rotation;
-                var beta_rotation;
-                var gamma_rotation;
-                var rotation_rate = e.rotationRate;
-                if (rotation_rate != null) {
-                    alpha_rotation = Math.round(rotation_rate.alpha);
-                    beta_rotation = Math.round(rotation_rate.beta);
-                    gamma_rotation = Math.round(rotation_rate.gamma);
-                }
-
-                a_b = Math.abs(Math.abs(alpha_rotation) - Math.abs(beta_rotation)) > threshold;
-                a_g = Math.abs(Math.abs(alpha_rotation) - Math.abs(gamma_rotation)) > threshold;
-                b_g = Math.abs(Math.abs(beta_rotation) - Math.abs(gamma_rotation)) > threshold;
-                
-                if (a_b || a_g || b_g) {
-                    if(Math.abs(alpha_rotation) > Math.abs(beta_rotation) && Math.abs(alpha_rotation) > Math.abs(gamma_rotation)) {
-                        App.Player.ans = "A";
-                    }else if(Math.abs(beta_rotation) > Math.abs(alpha_rotation) && Math.abs(beta_rotation) > Math.abs(gamma_rotation)) {
-                        App.Player.ans = "B";
-                    }else if(Math.abs(gamma_rotation) > Math.abs(beta_rotation) && Math.abs(gamma_rotation) > Math.abs(alpha_rotation)) {
-                        App.Player.ans = "C";
-                    }   
-                    var data = {
-                        gameId: App.gameId,
-                        playerId: App.mySocketId,
-                        answer: App.Player.ans,
-                        round: App.currentRound
-                    }         
-                    console.log(App.mySocketId+ " " + App.Player.ans + " " + App.currentRound);
-                    IO.socket.emit('playerAnswer',data);           
-                }
-            },
-
-            /**
-             *  Click handler for the Player hitting a word in the word list.
-             */
-            onPlayerAnswerClick: function() {
-
-                //annyang.start();
-                // console.log('Clicked Answer Button');
-                var $btn = $(this);      // the tapped button
-                var answer = $btn.val(); // The tapped word
-                //var answer = $btn.id.slice(-1);
-
-                // Send the player info and tapped word to the server so
-                // the host can check the answer.
-                var data = {
-                    gameId: App.gameId,
-                    playerId: App.mySocketId,
-                    answer: answer,
-                    round: App.currentRound
-                }
-                console.log(App.mySocketId+ " " + answer + " " + App.currentRound);
-                IO.socket.emit('playerAnswer',data);
-            },
-
             /**
              *  Click handler for the "Start Again" button that appears
              *  when a game is over.
@@ -638,7 +607,7 @@ jQuery(function($){
 
             newEquation : function(data) {
                 // Create an unordered list element
-                var $list = $('<ul/>').attr('id','ulAnswers');
+                /*var $list = $('<ul/>').attr('id','ulAnswers');
 
                 // Insert a list item for each word in the word list
                 // received from the server.
@@ -652,12 +621,37 @@ jQuery(function($){
                                 .html(this)              //  <ul> <li> <button class='btnAnswer' value='word'>word</button> </li> </ul>
                             )
                         )
-                });
+                });*/
+                
+                annyang.start();
+                
 
-                navigator.vibrate(1000);
+                //navigator.vibrate(1000);
 
                 // Insert the list onto the screen.
-                $('#gameArea').html($list);
+                $('#gameArea').html('<button type="button" id="RecordButton">Answer</button>');
+            },
+
+            /*resumeRecord: function() {
+                console.log("Voice resume!");
+                annyang.resume();
+            },
+
+            pauseRecord: function() {
+                console.log("Voice stop!");
+                annyang.pause();
+            },*/
+
+            submitGuess: function(word_guess) {
+                App.Player.ans = word_guess;
+                var data = {
+                    gameId: App.gameId,
+                    playerId: App.mySocketId,
+                    answer: App.Player.ans,
+                    round: App.currentRound
+                }         
+                console.log(App.mySocketId+ " " + App.Player.ans + " " + App.currentRound);
+                IO.socket.emit('playerAnswer',data);           
             },
 
             /**
