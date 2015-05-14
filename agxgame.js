@@ -203,7 +203,7 @@ function getNewAnagram(roundNumber) {
     
     var source_words = get_game_word();
     console.log(source_words);
-    var rand = Math.floor(Math.random() * (source_words.length - 1));
+    var rand = Math.floor(Math.random() * (source_words.length - 1)) % 48;
     console.log("RAND :"+ rand);
     var game_word = source_words[ rand ];
     console.log(game_word);
