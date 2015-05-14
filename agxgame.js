@@ -169,7 +169,34 @@ function sendEquation(roundNumber, gameId) {
 }
 
 function getNewAnagram(roundNumber) {
+    var temp = roundNumber%2;
 
+    var valid_words = [
+        ["plot","lop","lot","opt","pol","pot","top"],
+        ["sword","words","rows","word","pol","pot","top"]
+    ];
+    var vword_state = [
+        [0,0,0,0,0],
+        [0,0,0,0,0,0,0]
+    ];
+    var longest_words = [
+        ["plot"],
+        ["sword","words"]
+    ];
+    var jumbled_word = [
+        "tolp",
+        "rowds"
+    ]; 
+ 
+     var anagramData = {
+        validWordsArray: valid_words[temp],
+        validWordsState: vword_state[temp],
+        longestWordsArray: longest_words[temp],
+        puzzleWord: jumbled_word[temp],
+         round: roundNumber
+     }
+     return anagramData;
+    /*
     var source_words = get_game_word();
     var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
     console.log(game_word);
@@ -185,6 +212,7 @@ function getNewAnagram(roundNumber) {
         round: roundNumber
     }
     return anagramData;
+    */
 }
 
 function getNewEquation(roundNumber) {
