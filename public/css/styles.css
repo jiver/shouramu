@@ -3,12 +3,15 @@
  Dark Green : #78BD4C
   Mid Green : #A8FF56
        Lite : #ECFFE0
-Dark Purple : #A22FB0
+Dark Purple : #F00
 
 */
 
 html, body {
-    background-color: #161A14;
+    background-image: url("test.jpg");
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
     height: 100%;
     width: 100%;
     margin: 0;
@@ -28,7 +31,7 @@ html, body {
     width: 49%;
     margin-bottom: 0;
     color: #ECFFE0;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 2em;
     line-height: 1.2;
@@ -85,7 +88,7 @@ html, body {
 }
 
 .titleWrapper {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     position: absolute;
     height: 50%;
@@ -94,16 +97,16 @@ html, body {
     bottom: 0;
     left: 0;
     top: 0;
-    right: 0;
+    right: 0;tet
 }
 
 .title {
     margin: 0px auto;
     text-align: center;
     width: 100%;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: #ECFFE0;
-    font-weight: 300;
+    font-weight: 140;
 }
 
 .buttons {
@@ -117,7 +120,7 @@ html, body {
    ****************************** */
 
 .createGameWrapper, .joinGameWrapper, .gameOver {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0 auto;
     text-align: center;
 }
@@ -131,7 +134,7 @@ html, body {
 
 .createGameWrapper{
     color: #AE37B2;
-    font-weight: 300;
+    font-weight: 120;
 }
 
 .info label {
@@ -143,8 +146,8 @@ html, body {
     padding: 10px;
     width: 200px;
     height: 60px;
-    font-family: 'Quicksand', sans-serif;
-    color: #A22FB0;
+    font-family: 'Montserrat', sans-serif;
+    color: #F00;
     font-weight: 300;
     font-size: 54px;
     border: 1px dotted white;
@@ -239,8 +242,8 @@ html, body {
 
 /* Absolute Centering: http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/ */
 #wordArea {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 40;
     /*position: absolute;*/
     height: 50%;
     width: 100%;
@@ -255,8 +258,9 @@ html, body {
 #MathEqn {
     height: 100%;
     width: 100%;
-    color: #0BCED6;
-	margin-top: 10%;
+	font-weight: 200;
+    color: #5153FF;
+	margin-top: 2%;
     /*float: left;*/
 }
 
@@ -272,7 +276,7 @@ html, body {
     width: 25%;
     padding: 0;
     margin: 0;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     height: 100%;
     float: left;
@@ -312,7 +316,7 @@ html, body {
     width: 20%;
     padding: 0;
     margin: 0;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     height: 100%;
     float: left;
@@ -345,7 +349,7 @@ html, body {
     height: 20%;
     padding-top: 10%;
     font-size: 2em;
-    color: #A22FB0;
+    color: #F00;
 }
 
 .btnGameOver {

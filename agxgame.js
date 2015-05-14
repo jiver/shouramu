@@ -1,4 +1,5 @@
 var io;
+var io;
 var gameSocket;
 // Create moniker for random name generator
 var moniker = require('moniker');
@@ -171,8 +172,8 @@ function sendEquation(roundNumber, gameId) {
 }
 
 function getNewAnagram(roundNumber) {
-    var valid_words = ["cool","loco","col","coo","loo"];
-    var vword_state = [0,0,0,0,0];
+    var valid_words = ["coo","loo","col","cool","loco"];
+    var vword_state = [0,0,0,1,0];
     var longest_words = ["cool","loco"];
     var jumbled_word = "oolc"; 
 

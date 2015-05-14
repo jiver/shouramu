@@ -350,18 +350,19 @@ jQuery(function($){
             newEquation : function(data) {
 
                 $('#MathEqn').text(data.puzzleWord);
-                App.doTextFit('#MathEqn');
+                App.doTextFitMax('#MathEqn');
 
-                var temmmpp = "";
-                for(var i=0;i<5;i++){
+                var temmmpp = "<br><br>";
+                for(var i=0;i<data.validWordsArray.length;i++){
                     if(data.validWordsState[i]) {
-                        temmmpp += " " + data.validWordsArray[i];
+                        temmmpp += data.validWordsArray[i] + "<br>";
                     }else{
-                        temmmpp += " " + data.validWordsArray[i].replace(/\w/gi, "_ ");
+                        temmmpp += data.validWordsArray[i].replace(/\w/gi, "_ ") + "<br>";
                     }
                 }
-
-                $('#ValidWords').text(temmmpp);
+				
+			
+                $('#ValidWords').html(temmmpp);
                 App.doTextFit('#ValidWords');
 
                 $('#ChoiceA').find('.letter').text(data.choices[0]);
@@ -731,7 +732,20 @@ jQuery(function($){
                     alignVert:false,
                     widthOnly:true,
                     reProcess:true,
-                    maxFontSize:300
+                    maxFontSize:80
+                }
+            );
+        },
+		
+		doTextFitMax : function(el) {
+            textFit(
+                $(el)[0],
+                {
+                    alignHoriz:true,
+                    alignVert:false,
+                    widthOnly:true,
+                    reProcess:true,
+                    maxFontSize:200
                 }
             );
         },
