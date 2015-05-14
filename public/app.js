@@ -450,6 +450,9 @@ jQuery(function($){
 
                 if (data.round === App.currentRound){
 
+                    console.log( App.Host.validWordsArray);
+                    console.log( App.Host.validWordsState);
+
                     // Get the player's score
                     var $pScore = $('#' + data.playerId);
 
