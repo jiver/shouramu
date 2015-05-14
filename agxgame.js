@@ -203,7 +203,7 @@ function getNewAnagram(roundNumber) {
     var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
     console.log(game_word);
     var jumble_word = get_jumbled_word(game_word);
-    var valid_words = extract_english_words(get_subwords(game_word,3),build_dictionary());
+    var valid_words = get_subwords(game_word,4);
     var vword_states = init_word_state(valid_words.length);
 
     var anagramData = {
@@ -301,7 +301,7 @@ function get_game_word() {
 }
 
 function get_jumbled_word(str){
-    random_words = permutations(str,str.length);
+    var random_words = permutations(str,str.length);
     return random_words[Math.floor(Math.random() * (random_words.length - 1) + 1)];
 }
 
@@ -320,9 +320,8 @@ function build_dictionary() {
 }
 
 function extract_english_words(str_arr,dict){
-    var str;
     var arr = [];
-    for (str in str_arr){
+    for (var str in str_arr){
         if (dict.indexOf(str_arr[str]) > -1) {
             arr.push(str_arr[str]);
         }    
@@ -331,13 +330,13 @@ function extract_english_words(str_arr,dict){
 }
 
 function get_subwords(str,floor){
-    var i = floor;
     var subwords = [];
-    for(;i<str.length+1;i++){
+    var dict = build_dictionary();
+    for(var i = floor;i<str.length+1;i++){
         var result = permutations(str,i);
-        var word;
-        for (word in result) {
-            subwords.push(result[word]);
+        var valid_words = extract_english_words(result,dict);
+        for (var word in valid_words) {
+            subwords.push(valid_words[word]);
         }
     }
     return subwords;

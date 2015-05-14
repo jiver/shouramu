@@ -1,9 +1,9 @@
 console.time("Runtime");
 var source_words = get_game_word();
-//var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
-var game_word = "scratch";
+var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
 var jumble_word = get_jumble_word(game_word);
-var valid_words = extract_english_words(get_subwords(game_word,4),build_dictionary());
+//var valid_words = extract_english_words(get_subwords(game_word,4),build_dictionary());
+var valid_words = get_subwords(game_word,4);
 console.log(jumble_word);
 console.log(valid_words);
 console.timeEnd("Runtime");
@@ -33,30 +33,25 @@ function build_dictionary() {
 }
 
 function extract_english_words(str_arr,dict){
-    var str;
     var arr = [];
-    console.time("Extr");
-    for (str in str_arr){
+    for (var str in str_arr){
         if (dict.indexOf(str_arr[str]) > -1) {
             arr.push(str_arr[str]);
         }    
     }
-    console.timeEnd("Extr");
     return arr;    
 }
 
 function get_subwords(str,floor){
-    var i = floor;
     var subwords = [];
-    console.time("Sub: " + floor);
-    for(;i<str.length+1;i++){
+    var dict = build_dictionary();
+    for(var i = floor;i<str.length+1;i++){
         var result = permutations(str,i);
-        var word;
-        for (word in result) {
-            subwords.push(result[word]);
+        var valid_words = extract_english_words(result,dict);
+        for (var word in valid_words) {
+            subwords.push(valid_words[word]);
         }
     }
-    console.timeEnd("Sub: " + floor);
     return subwords;
 }
 
