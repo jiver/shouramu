@@ -1,6 +1,1 @@
-cent
-meet
-mete
-teem
-teen
-cement
+cent,meet,mete,teem,teen,cement

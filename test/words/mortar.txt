@@ -1,7 +1,1 @@
-moat
-mart
-roam
-roar
-atom
-armor
-mortar
+moat,mart,roam,roar,atom,armor,mortar

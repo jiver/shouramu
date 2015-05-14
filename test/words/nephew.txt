@@ -1,3 +1,1 @@
-weep
-when
-nephew
+weep,when,nephew

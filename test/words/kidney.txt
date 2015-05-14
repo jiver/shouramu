@@ -1,7 +1,1 @@
-kind
-dike
-dine
-deny
-dyne
-inked
-kidney
+kind,dike,dine,deny,dyne,inked,kidney

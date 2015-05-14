@@ -1,6 +1,1 @@
-arcs
-alas
-scar
-cars
-rascal
-scalar
+arcs,alas,scar,cars,rascal,scalar

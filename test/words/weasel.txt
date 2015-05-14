@@ -1,15 +1,1 @@
-ewes
-ease
-eels
-else
-awls
-alee
-seal
-sale
-slew
-lees
-laws
-wales
-easel
-lease
-weasel
+ewes,ease,eels,else,awls,alee,seal,sale,slew,lees,laws,wales,easel,lease,weasel

@@ -1,14 +1,1 @@
-peer
-pure
-user
-spur
-seep
-seer
-sure
-peers
-purse
-reuse
-rupee
-spree
-super
-peruse
+peer,pure,user,spur,seep,seer,sure,peers,purse,reuse,rupee,spree,super,peruse

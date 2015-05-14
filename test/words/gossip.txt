@@ -1,4 +1,1 @@
-sips
-pigs
-piss
-gossip
+sips,pigs,piss,gossip

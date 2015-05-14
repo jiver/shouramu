@@ -1,5 +1,1 @@
-more
-bore
-robe
-obey
-embryo
+more,bore,robe,obey,embryo

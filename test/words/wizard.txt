@@ -1,5 +1,1 @@
-ward
-arid
-raid
-draw
-wizard
+ward,arid,raid,draw,wizard

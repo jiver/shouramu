@@ -1,8 +1,1 @@
-bard
-boar
-road
-drab
-board
-broad
-aboard
-abroad
+bard,boar,road,drab,board,broad,aboard,abroad

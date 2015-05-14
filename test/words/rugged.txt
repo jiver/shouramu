@@ -1,6 +1,1 @@
-rude
-urge
-drug
-urged
-rugged
-grudge
+rude,urge,drug,urged,rugged,grudge

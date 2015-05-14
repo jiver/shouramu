@@ -1,6 +1,1 @@
-face
-fade
-cafe
-deaf
-faced
-facade
+face,fade,cafe,deaf,faced,facade

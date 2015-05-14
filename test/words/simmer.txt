@@ -1,10 +1,1 @@
-sire
-semi
-ires
-mire
-rise
-rims
-rime
-miser
-mires
-simmer
+sire,semi,ires,mire,rise,rims,rime,miser,mires,simmer

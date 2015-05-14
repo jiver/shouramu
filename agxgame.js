@@ -300,7 +300,7 @@ function getIndex(array, value) {
 
 function get_game_word() {
     var fs = require('fs');
-    return fs.readFileSync('test/sources.txt').toString().split("\r\n");
+    return fs.readFileSync('test/sources.txt').toString().split(",");
 }
 
 function get_jumbled_word(str){
@@ -319,7 +319,7 @@ function init_word_state(arr) {
 function get_subwords(str) {
 	file = "test/words/" + str + ".txt";
 	var fs = require('fs');
-	return fs.readFileSync(file).toString().split("\r\n");
+	return fs.readFileSync(file).toString().split(",");
 }
 
 function permutations(array, r) {                                                  

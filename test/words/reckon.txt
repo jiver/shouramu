@@ -1,10 +1,1 @@
-rock
-core
-cork
-corn
-coke
-cone
-kern
-once
-neck
-reckon
+rock,core,cork,corn,coke,cone,kern,once,neck,reckon

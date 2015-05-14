@@ -1,14 +1,1 @@
-shoe
-sole
-hose
-hoes
-hole
-lose
-love
-shove
-solve
-hovel
-holes
-loves
-shovel
-hovels
+shoe,sole,hose,hoes,hole,lose,love,shove,solve,hovel,holes,loves,shovel,hovels

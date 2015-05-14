@@ -1,7 +1,1 @@
-wide
-diet
-edit
-twig
-tide
-tied
-widget
+wide,diet,edit,twig,tide,tied,widget

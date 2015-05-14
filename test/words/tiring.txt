@@ -1,5 +1,1 @@
-ring
-girt
-grit
-grin
-tiring
+ring,girt,grit,grin,tiring

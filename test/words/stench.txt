@@ -1,13 +1,1 @@
-sent
-sect
-tens
-then
-etch
-nest
-nets
-cent
-hens
-scent
-cents
-chest
-stench
+sent,sect,tens,then,etch,nest,nets,cent,hens,scent,cents,chest,stench

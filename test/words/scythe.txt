@@ -1,6 +1,1 @@
-sect
-cyst
-they
-etch
-chest
-scythe
+sect,cyst,they,etch,chest,scythe
