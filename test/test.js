@@ -3,7 +3,7 @@ var source_words = get_game_word();
 //var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
 var game_word = "scratch";
 var jumble_word = get_jumble_word(game_word);
-var valid_words = extract_english_words(get_subwords(game_word,3),build_dictionary());
+var valid_words = extract_english_words(get_subwords(game_word,4),build_dictionary());
 console.log(jumble_word);
 console.log(valid_words);
 console.timeEnd("Runtime");
