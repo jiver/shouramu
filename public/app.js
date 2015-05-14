@@ -728,7 +728,7 @@ jQuery(function($){
             textFit(
                 $(el)[0],
                 {
-                    alignHoriz:true,
+                    alignHoriz:false,
                     alignVert:false,
                     widthOnly:true,
                     reProcess:true,
