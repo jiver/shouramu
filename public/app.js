@@ -419,7 +419,7 @@ jQuery(function($){
                     if( answer_index >= 0) {
 
                         // Add 5 to the player's score
-                        $pScore.text( +$pScore.text() + 5 );
+                        $pScore.text( +$pScore.text() +  data.answer.length());
                         App.Host.validWordsState[answer_index] = 1;
 
                         answer_index = App.Host.longestWordsArray.indexOf(data.answer.toLowerCase())
@@ -427,6 +427,8 @@ jQuery(function($){
                         App.Host.updateEquation(App.Host.validWordsArray, App.Host.validWordsState);
 
                         if ( answer_index >= 0) {
+                            $pScore.text( +$pScore.text() +  data.answer.length());
+
                             console.log("Index of "+data.answer+": "+answer_index);
                             // Advance the round
                             App.currentRound += 1;
