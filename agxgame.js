@@ -204,7 +204,7 @@ function getNewAnagram(roundNumber) {
     var source_words = get_game_word();
     var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
     console.log(game_word);
-    var jumble_word = get_jumbled_word(game_word);
+    var jumble_word = game_word;
     var valid_words = get_subwords(game_word);
     var vword_states = init_word_state(valid_words.length);
 
