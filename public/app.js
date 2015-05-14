@@ -357,7 +357,7 @@ jQuery(function($){
                     if(data.validWordsState[i]) {
                         temmmpp += " " + data.validWordsArray[i];
                     }else{
-                        temmmpp += " _";
+                        temmmpp += " " + data.validWordsArray[i].replace(/\w/gi, "_ ");
                     }
                 }
 
