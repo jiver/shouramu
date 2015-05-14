@@ -163,25 +163,40 @@ function playerRestart(data) {
 
 
 function sendEquation(roundNumber, gameId) {
-    var data = getNewEquation(roundNumber);
-    console.log(data);
+    //var data = getNewEquation(roundNumber);
+    //console.log(data);
     //io.sockets.in(data.gameId).emit('newEquationData', data);
 
     var word_data = getNewAnagram(roundNumber);
+    console.log(word_data);
     io.sockets.in(word_data.gameId).emit('newEquationData', word_data);
 }
 
 function getNewAnagram(roundNumber) {
-    var valid_words = ["coo","loo","col","cool","loco"];
-    var vword_state = [0,0,0,1,0];
-    var longest_words = ["cool","loco"];
-    var jumbled_word = "oolc"; 
+    var temp = roundNumber%2;
+
+    var valid_words = [
+        ["plot","lop","lot","opt","pol","pot","top"],
+        ["sword","words","rows","word","pol","pot","top"]
+    ];
+    var vword_state = [
+        [0,0,0,0,0],
+        [0,0,0,0,0,0,0]
+    ];
+    var longest_words = [
+        ["plot"],
+        ["sword","words"]
+    ];
+    var jumbled_word = [
+        "tolp",
+        "rowds"
+    ]; 
 
     var anagramData = {
-        validWordsArray: valid_words,
-        validWordsState: vword_state,
-        longestWordsArray: longest_words,
-        puzzleWord: jumbled_word,
+        validWordsArray: valid_words[temp],
+        validWordsState: vword_state[temp],
+        longestWordsArray: longest_words[temp],
+        puzzleWord: jumbled_word[temp],
         round: roundNumber
     }
     return anagramData;
@@ -314,4 +329,3 @@ function getIndex(array, value) {
     return false;
 }
 
-console.log(getNewEquation(0));
