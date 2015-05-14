@@ -29,7 +29,8 @@ html, body {
 .btn {
     display: inline-block;
     height: 100%;
-    width: 17%;
+    width: 300px;
+	border-radius: 8px;
     margin-bottom: 0;
     color: #ECFFE0;
     font-family: 'Montserrat', sans-serif;
