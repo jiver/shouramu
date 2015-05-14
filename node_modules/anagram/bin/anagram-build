@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var anagram = require('../'),
+		fs = require('fs'),
+		argv = require('optimist')
+			.usage('Usage: $0 -f [path]')
+			.demand(['f'])
+			.alias('f', 'file')
+			.describe('f', 'Path to the dictionary to transform into pasred js trie. Needs to be list of words single spaced. See /dict/nomnom.pl')
+			.argv;
+
+anagram.createDictionary(argv.f, false);

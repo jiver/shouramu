@@ -1,4 +1,5 @@
 var io;
+var io;
 var gameSocket;
 // Create moniker for random name generator
 var moniker = require('moniker');
@@ -162,10 +163,45 @@ function playerRestart(data) {
 
 
 function sendEquation(roundNumber, gameId) {
-    var data = getNewEquation(roundNumber);
-    console.log(data);
-    io.sockets.in(data.gameId).emit('newEquationData', data);
+    //var data = getNewEquation(roundNumber);
+    //console.log(data);
+    //io.sockets.in(data.gameId).emit('newEquationData', data);
+
+    var word_data = getNewAnagram(roundNumber);
+    console.log(word_data);
+    io.sockets.in(word_data.gameId).emit('newEquationData', word_data);
 }
+
+function getNewAnagram(roundNumber) {
+    var temp = roundNumber%2;
+
+    var valid_words = [
+        ["plot","lop","lot","opt","pol","pot","top"],
+        ["sword","words","rows","word","pol","pot","top"]
+    ];
+    var vword_state = [
+        [0,0,0,0,0],
+        [0,0,0,0,0,0,0]
+    ];
+    var longest_words = [
+        ["plot"],
+        ["sword","words"]
+    ];
+    var jumbled_word = [
+        "tolp",
+        "rowds"
+    ]; 
+
+    var anagramData = {
+        validWordsArray: valid_words[temp],
+        validWordsState: vword_state[temp],
+        longestWordsArray: longest_words[temp],
+        puzzleWord: jumbled_word[temp],
+        round: roundNumber
+    }
+    return anagramData;
+}
+
 
 function getNewEquation(roundNumber) {
                 // Determine who wins the game!

@@ -1,5 +1,5 @@
 {
-  "name": "Finex",
+  "name": "shouramu",
   "version": "0.0.1",
   "description": "Cool multiplayer game!",
   "main": "index.js",
@@ -11,16 +11,17 @@
     "express": "3.x",
     "socket.io": "0.9",
     "moniker": "~0.1.2",
-    "bitly": "~1.2.5"
+    "bitly": "~1.2.5",
+    "anagram": "0.4.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jiver/finex.git"
+    "url": "https://github.com/jiver/shouramu.git"
   },
-  "author": "finex",
+  "author": "shouramu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jiver/finex/issues"
+    "url": "https://github.com/jiver/shouramu/issues"
   },
-  "homepage": "https://github.com/jiver/finex"
+  "homepage": "https://github.com/jiver/shouramu"
 }
