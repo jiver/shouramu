@@ -9,14 +9,14 @@ Dark Purple : #F00
 
 html, body {
     background-image: url("test.jpg");
-	background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center; 
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-	position:fixed;
+    position:fixed;
 }
 
 
@@ -30,7 +30,7 @@ html, body {
     display: inline-block;
     height: 100%;
     width: 300px;
-	border-radius: 14px;
+    border-radius: 14px;
     margin-bottom: 0;
     color: #ECFFE0;
     font-family: 'Montserrat', sans-serif;
@@ -83,15 +83,15 @@ html, body {
    ****************************** */
 
 #gameArea {
-	font-size: 1.3em;
-	color: blue;
+    font-size: 1.3em;
+    color: blue;
     height: 584px;
     width: 100%;
 }
 
 #gameArea2 {
-	font-size: 1.3em;
-	color: blue;
+    font-size: 1.3em;
+    color: blue;
     height: 500px;
     width: 100%;
 }
@@ -174,8 +174,8 @@ html, body {
    ****************************** */
 
 .h2pWrapper {
-	font-size: 1.5em;
-	color: blue;
+    font-size: 1.5em;
+    color: blue;
 }
 
 /* ******************************
@@ -249,12 +249,40 @@ html, body {
        (host-game-template)
    ****************************** */
 
+ul{
+    width:100%;
+    margin-bottom:50px;
+    overflow:hidden;
+
+}
+li{
+    line-height:1.5em;
+    float:left;
+    display:inline;
+    margin-bottom:10px;
+
+}
+#double li  { width:50%;}
+#triple li  { width:33.333%; }
+#quad li        { width:25%; }
+#six li     { width:16.666%; }
+
+.puzzleButton {
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 30px;
+  background: #3498db;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
 /* Absolute Centering: http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/ */
 #wordArea {
     font-family: 'Montserrat', sans-serif;
     font-weight: 40;
     /*position: absolute;*/
-    height: 100%;
     width: 100%;
     margin: auto;
     bottom: 0;
@@ -262,19 +290,16 @@ html, body {
     top: 0;
     right: 0;
     display: inline-block;
-	-moz-columns:4;
-	-webkit-columns:4;
-	columns:4;
-	margin-top: 5cm;
+    margin-top: 3cm;
 }
 
 #MathEqn {
     height: 100%;
     width: 100%;
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     color: #5153FF;
-	margin-top: -5%;
+    margin-top: -5%;
 }
 
 #playerScores {
@@ -282,7 +307,7 @@ html, body {
     width: 100%;
     position: fixed;
     top: 0;
-	margin-left: -1%;
+    margin-left: -1%;
 }
 
 .playerScore {
@@ -322,7 +347,7 @@ html, body {
     width: 100%;
     position: fixed;
     bottom: 0px;
-	text-align: center;
+    text-align: center;
     margin-right: auto;
     margin-left: 25%;
 }
