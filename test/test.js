@@ -1,7 +1,7 @@
 console.time("Runtime");
 var source_words = get_game_word();
 var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
-var jumble_word = get_jumble_word(game_word);
+var jumble_word = game_word;
 var valid_words = get_subwords(game_word);
 console.log(jumble_word);
 console.log(valid_words);
