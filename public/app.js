@@ -375,7 +375,7 @@ jQuery(function($){
                 $('#MathEqn').text(data.puzzleWord);
                 App.doTextFitMax('#MathEqn');
 
-                var temmmpp = "<br><br>";
+                var temmmpp = "";
                 for(var i=0;i<data.validWordsArray.length;i++){
                     if(data.validWordsState[i]) {
                         temmmpp += data.validWordsArray[i] + "<br>";

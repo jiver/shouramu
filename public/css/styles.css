@@ -16,6 +16,7 @@ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
+	position:fixed;
 }
 
 
@@ -28,13 +29,13 @@ html, body {
 .btn {
     display: inline-block;
     height: 100%;
-    width: 49%;
+    width: 17%;
     margin-bottom: 0;
     color: #ECFFE0;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 2em;
-    line-height: 1.2;
+    line-height: 2.5;
     text-align: center;
     background-color: #8AD453;
     white-space: nowrap;
@@ -83,7 +84,14 @@ html, body {
 #gameArea {
 	font-size: 1.3em;
 	color: blue;
-    height: 100%;
+    height: 500px;
+    width: 100%;
+}
+
+#gameArea2 {
+	font-size: 1.3em;
+	color: blue;
+    height: 500px;
     width: 100%;
 }
 
@@ -189,12 +197,12 @@ html, body {
 }
 
 .joinGameWrapper .btn {
-    width: 100%;
-    height: 50%;
+    /*width: 100%;*/
+    height: 100%;
 }
 
 #playerWaitingMessage {
-    font-size: .8em;
+    font-size: 2.0em;
 }
 
 .createGameWrapper #gameURL {
@@ -245,7 +253,7 @@ html, body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 40;
     /*position: absolute;*/
-    height: 50%;
+    height: 100%;
     width: 100%;
     margin: auto;
     bottom: 0;
@@ -253,14 +261,19 @@ html, body {
     top: 0;
     right: 0;
     display: inline-block;
+	-moz-columns:3;
+	-webkit-columns:3;
+	columns:3;
+	margin-top: 5cm;
 }
 
 #MathEqn {
     height: 100%;
     width: 100%;
+	font-family: 'Montserrat', sans-serif;
 	font-weight: 200;
     color: #5153FF;
-	margin-top: 2%;
+	margin-top: -7%;
     /*float: left;*/
 }
 

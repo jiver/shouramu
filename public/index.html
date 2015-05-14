@@ -32,9 +32,8 @@
             </div>
 
             <div class="buttons">
-
-                <button id="btnCreateGame" class="btn left">CREATE</button>
-                <button id="btnJoinGame" class="btn right">JOIN</button>
+                <button id="btnCreateGame" class="btn extra" style="margin-top: 2%">CREATE</button><br>
+                <button id="btnJoinGame" class="btn extra" style="margin-top: 2%">JOIN</button><br>
 				<button id="btnH2p" class="btn extra" style="margin-top: 2%">How to Play</button>
                 <div style="clear:both"></div>
             </div>
@@ -86,8 +85,8 @@
 
             <div class="info buttons">
                 <button id="btnStart" class="btn">Start</button>
-                <div id="playerWaitingMessage"></div>
             </div>
+			<div id="playerWaitingMessage"></div>
         </div>
     </script>
 
@@ -95,8 +94,9 @@
     <script id="host-game-template" type="text/template">
         <div id="wordArea">
             <div id="ValidWords" >choices</div>
-            <div id="MathEqn" >5</div>
+            <!--div id="MathEqn" >5</div-->
         </div>
+		<div id="MathEqn" >5</div>
         <div id="playerScores">
         </div>
     </script>
