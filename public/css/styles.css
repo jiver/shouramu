@@ -314,7 +314,7 @@ html, body {
 }
 
 .playerScore .playerName {
-    width: 70%;
+    width: 100%;
     background-color: #ECFFE0;
     float: right;
 }
