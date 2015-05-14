@@ -169,19 +169,19 @@ function sendEquation(roundNumber, gameId) {
 }
 
 function getNewAnagram(roundNumber) {
-    var currRoundNumber = roundNumber%2;
 
     var source_words = get_game_word();
     var game_word = source_words[Math.floor(Math.random() * (source_words.length - 1))];
-    var jumble_word = jumble_word(game_word);
+    console.log(game_word);
+    var jumble_word = get_jumbled_word(game_word);
     var valid_words = extract_english_words(get_subwords(game_word,3),build_dictionary());
-    var vword_state = init_word_state(valid_words.length);
+    var vword_states = init_word_state(valid_words.length);
 
     var anagramData = {
-        validWordsArray: valid_words[currRoundNumber],
-        validWordsState: vword_state[currRoundNumber],
-        longestWordsArray: source_words[currRoundNumber],
-        puzzleWord: jumbled_word[currRoundNumber],
+        validWordsArray: valid_words,
+        validWordsState: vword_states,
+        longestWordsArray: game_word,
+        puzzleWord: jumble_word,
         round: roundNumber
     }
     return anagramData;
@@ -267,10 +267,10 @@ console.log(getNewEquation(0));
 
 function get_game_word() {
     var fs = require('fs');
-    return fs.readFileSync('sources.txt').toString().split("\r\n");
+    return fs.readFileSync('test/sources.txt').toString().split("\r\n");
 }
 
-function jumble_word(str){
+function get_jumbled_word(str){
     random_words = permutations(str,str.length);
     return random_words[Math.floor(Math.random() * (random_words.length - 1) + 1)];
 }
@@ -285,7 +285,7 @@ function init_word_state(arr) {
 
 function build_dictionary() {
     var fs = require('fs');
-    var array = fs.readFileSync('dict.txt').toString().split("\r\n");
+    var array = fs.readFileSync('test/dict.txt').toString().split("\r\n");
     return array;
 }
 
