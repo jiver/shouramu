@@ -209,12 +209,13 @@ function getNewAnagram(roundNumber) {
     //console.log(game_word);
     var jumble_word = shuffle_string(game_word);
     var valid_words = get_subwords(game_word);
+    var longest_words = [game_word];
     var vword_states = init_word_state(valid_words.length);
 
     var anagramData = {
         validWordsArray: valid_words,
         validWordsState: vword_states,
-        longestWordsArray: game_word,
+        longestWordsArray: longest_words,
         puzzleWord: jumble_word,
         round: roundNumber
     }
