@@ -363,8 +363,8 @@ jQuery(function($){
                 for (var i = 0; i < App.Host.maxPlayers; ++i) {
                     $('#playerScores')
                         .append('<div  id="player' + (i+1) + 'Score" class="playerScore">' + 
+						'<div class="score" id = "' + App.Host.players[i].mySocketId + '">0</div>' + 
                         '<span class="playerName">' + App.Host.players[i].playerName + '</span>' +
-                        '<span class="score" id = "' + App.Host.players[i].mySocketId + '">0</span>' + 
                         '</div>');
                 }
             },
