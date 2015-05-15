@@ -379,6 +379,7 @@ jQuery(function($){
                 var $secondsLeft = $('#TIMER');
                 App.countDown2( $secondsLeft, 30, function(){
                     // Prepare data to send to the server
+                    App.currentRound += 1;
                             var data = {
                                 gameId : App.gameId,
                                 round : App.currentRound
