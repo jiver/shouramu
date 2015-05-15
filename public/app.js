@@ -206,7 +206,7 @@ jQuery(function($){
             }*/
 
             var commands = {
-                    'play *word_guess': function (word_guess) {
+                    'go *word_guess': function (word_guess) {
                            App.Player.submitGuess(word_guess);
                         }
                 };
