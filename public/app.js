@@ -415,25 +415,26 @@ jQuery(function($){
                     if(validWordsState[i]) {
                         temp[i] = validWordsArray[i] ;
                     }else{
-                        temp[i] = validWordsArray[i].replace(/\w/gi, "_ ");
+                        temp[i] = validWordsArray[i].replace(/\w/gi, "♪");
                     }
                 }
 
                 // Create an unordered list element
-                var $list = $('<ul/>').attr('id','quad');
+                var $list = $('<ul/>').attr('id','triple');
 
                 // Insert a list item for each word in the word list
                 // received from the server.
                 $.each(temp, function(){
-                    $list                                //  <ul> </ul>
-                        .append( $('<li/>')              //  <ul> <li> </li> </ul>
-                            .append( $('<button/>')      //  <ul> <li> <button> </button> </li> </ul>
-                                //.addClass('btnAnswer')   //  <ul> <li> <button class='btnAnswer'> </button> </li> </ul>
-                                .addClass('puzzleButton')         //  <ul> <li> <button class='btnAnswer'> </button> </li> </ul>
-                                .val(this)               //  <ul> <li> <button class='btnAnswer' value='word'> </button> </li> </ul>
-                                .html(this)              //  <ul> <li> <button class='btnAnswer' value='word'>word</button> </li> </ul>
-                            )
-                        )
+                    var $i_list = $('<li/>');
+
+                    for(var i=0;i < this.length;i++){
+                        $i_list.append($('<button/>')
+                            .addClass('tileButton')         //  <ul> <li> <button class='btnAnswer'> </button> </li> </ul>
+                            .val(this[i])               //  <ul> <li> <button class='btnAnswer' value='word'> </button> </li> </ul>
+                            .html(this[i])
+                        );
+                    }
+                    $list.append( $i_list);
                 });
 
                 $('#ValidWords').html($list);
