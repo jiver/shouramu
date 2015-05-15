@@ -410,7 +410,7 @@ jQuery(function($){
                 $('#ValidWords').html(temmmpp);
                 App.doTextFit('#ValidWords');
                 */
-                var temp;
+                var temp=[];
                 for(var i=0;i<validWordsArray.length;i++){
                     if(validWordsState[i]) {
                         temp[i] = validWordsArray[i] ;
