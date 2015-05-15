@@ -143,6 +143,8 @@ jQuery(function($){
          */
         currentRound: 0,
 
+        timer: 0,
+
         /* *************************************
          *                Setup                *
          * *********************************** */
@@ -188,6 +190,7 @@ jQuery(function($){
             App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
             //App.$doc.on('mousedown', '#RecordButton', App.Player.resumeRecord);
             //App.$doc.on('mouseup', '#RecordButton', App.Player.pauseRecord);
+            App.$doc.on('click', '#SubmitGuessButton', App.Player.submitGuess2);
             
            /* $( "#RecordButton" ).onmousedown = function(event) {
                 App.Player.resumeRecord;
@@ -424,15 +427,23 @@ jQuery(function($){
 
                 // Insert a list item for each word in the word list
                 // received from the server.
-                $.each(temp, function(){
+                $.each(temp, function(index){
                     var $i_list = $('<li/>');
 
                     for(var i=0;i < this.length;i++){
-                        $i_list.append($('<button/>')
-                            .addClass('tileButton')         //  <ul> <li> <button class='btnAnswer'> </button> </li> </ul>
-                            .val(this[i])               //  <ul> <li> <button class='btnAnswer' value='word'> </button> </li> </ul>
-                            .html(this[i])
-                        );
+                        var $butttooon = $('<button/>')
+                                 //  <ul> <li> <button class='btnAnswer'> </button> </li> </ul>
+                        .val(this[i])               //  <ul> <li> <button class='btnAnswer' value='word'> </button> </li> </ul>
+                        .html(this[i])
+
+                        if(validWordsState[index]){
+                            $butttooon.addClass('animated');
+                            $butttooon.addClass('tada');
+                            $butttooon.addClass('tileButtonSolved');
+                        }else{
+                            $butttooon.addClass('tileButton');
+                        }
+                        $i_list.append($butttooon);
                     }
                     $list.append( $i_list);
                 });
@@ -489,7 +500,7 @@ jQuery(function($){
                                 round : App.currentRound
                             }
 
-
+                            clearInterval(App.timer);
                             // Notify the server to start the next round.
                             IO.socket.emit('hostNextRound',data);
                         }
@@ -685,7 +696,7 @@ jQuery(function($){
                 navigator.vibrate(1000);
 
                 // Insert the list onto the screen.
-                $('#gameArea').html('<div class="gameOver" id="WordGuess">Get Ready!</div>');
+                $('#gameArea').html('<div class="gameOver" ><input type="text" id="SubmitGuessText"/><input type="button" value="Submit" id="SubmitGuessButton" /><div id="WordGuess">Get Ready!</div></div>');
             },
 
             /*resumeRecord: function() {
@@ -708,6 +719,19 @@ jQuery(function($){
                 }         
                 console.log(App.mySocketId+ " " + App.Player.ans + " " + App.currentRound);
                 $('#WordGuess').text("Your Guess: " + word_guess);
+                IO.socket.emit('playerAnswer',data);           
+            },
+
+            submitGuess2: function() {
+                App.Player.ans = $("#SubmitGuessText").val();
+                var data = {
+                    gameId: App.gameId,
+                    playerId: App.mySocketId,
+                    answer: App.Player.ans,
+                    round: App.currentRound
+                }         
+                console.log(App.mySocketId+ " " + App.Player.ans + " " + App.currentRound);
+                $('#WordGuess').text("Your Guess: " + App.Player.ans);
                 IO.socket.emit('playerAnswer',data);           
             },
 
@@ -777,7 +801,7 @@ jQuery(function($){
             // console.log('Starting Countdown...');
 
             // Start a 1 second timer
-            var timer = setInterval(countItDown,1000);
+            App.timer = setInterval(countItDown,1000);
 
             // Decrement the displayed timer value on each 'tick'
             function countItDown(){
@@ -789,7 +813,7 @@ jQuery(function($){
                     // console.log('Countdown Finished.');
 
                     // Stop the timer and do the callback.
-                    clearInterval(timer);
+                    clearInterval(App.timer);
                     callback();
                     return;
                 }
