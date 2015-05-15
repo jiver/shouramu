@@ -18,14 +18,13 @@
 
 <body>
 
-
-    <div id="gameArea">
+	<div id="gameArea">
         <!-- This is where the templates defined below will be used -->
 		<label for="inputGameId">Please ask Master Jiver!!!</label>
     </div>
 
     <!-- Main Title Screen that appears when the page loads for the first time -->
-    <script id="intro-screen-template" type="text/template">
+    <script id="intro-screen-template">
     <img class="animated infinite flash" src="images/star.png" alt="some_text">
         <div class="titleWrapper">
 
@@ -127,5 +126,29 @@
     <!-- app.js is where all the client-side Anagrammatix game logic -->
     <script src="app.js"></script>
 
+	
+	<canvas id="app" style="z-index:1000; top: 0px; left: 0px;"></canvas>
+	<script src="libs/shooting-stars.min.js"></script>
+    <script>
+    var config = {
+      id: 'app',
+      particleLife: 300,
+      amount: 50,
+      star: {
+        size: {
+          upper: 50,
+          lower: 25
+        },
+        rotateLimit: 90, 
+        points: 5,
+        innerRadius: 0.5,
+        borderColor: '#290f5a',
+        fillColor: '#ffcc00',
+      }
+    };
+    myCanvas = new ShootingStars(config);
+    myCanvas.flushPool();
+    myCanvas.render();
+  </script>
 </body>
 </html>

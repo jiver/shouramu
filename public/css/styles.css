@@ -87,6 +87,7 @@ html, body {
     color: blue;
     height: 584px;
     width: 100%;
+	position: absolute;
 }
 
 #gameArea2 {
