@@ -410,12 +410,12 @@ jQuery(function($){
                 $('#ValidWords').html(temmmpp);
                 App.doTextFit('#ValidWords');
                 */
-
+                var temp;
                 for(var i=0;i<validWordsArray.length;i++){
                     if(validWordsState[i]) {
-                        validWordsArray[i] = validWordsArray[i] ;
+                        temp[i] = validWordsArray[i] ;
                     }else{
-                        validWordsArray[i] = validWordsArray[i].replace(/\w/gi, "_ ");
+                        temp[i] = validWordsArray[i].replace(/\w/gi, "_ ");
                     }
                 }
 
@@ -424,7 +424,7 @@ jQuery(function($){
 
                 // Insert a list item for each word in the word list
                 // received from the server.
-                $.each(validWordsArray, function(){
+                $.each(temp, function(){
                     $list                                //  <ul> </ul>
                         .append( $('<li/>')              //  <ul> <li> </li> </ul>
                             .append( $('<button/>')      //  <ul> <li> <button> </button> </li> </ul>
