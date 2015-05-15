@@ -99,6 +99,7 @@ html, body {
 .titleWrapper {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
+	12px
     position: absolute;
     height: 50%;
     width: 96%;
@@ -106,11 +107,13 @@ html, body {
     bottom: 0;
     left: 0;
     top: 0;
-    right: 0;tet
+    right: 0;
+	font-size: x-small;
 }
 
 .title {
     margin: 0px auto;
+	margin-bottom: 4%;
     text-align: center;
     width: 100%;
     font-family: 'Montserrat', sans-serif;
@@ -328,6 +331,14 @@ li{
     margin-top: -5%;
 }
 
+#TIMER {
+	position: fixed;
+	font-size: 80px;
+	color: floralwhite;
+    margin-left: 50%;
+	top: 10px;
+}
+
 #playerScores {
 	background-image: url("../images/2.png");
     background-repeat: no-repeat;
@@ -367,6 +378,7 @@ li{
 .playerScore .score {
     text-align: center;
 	font-size: 2.0EM;
+	margin-top: 1px;
     /*background-color: #A8FF56; */
     /*float: right;    */
 }

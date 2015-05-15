@@ -835,7 +835,7 @@ jQuery(function($){
                     alignVert: false,
                     widthOnly:true,
                     reProcess:true,
-                    maxFontSize:52
+                    maxFontSize:80
                 }
             );
         },
